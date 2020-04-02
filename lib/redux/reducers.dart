@@ -10,16 +10,15 @@ AppState appStateReducer(AppState state, dynamic action) {
 
 User userReducers(User user, action) {
 
-  switch (action) {
-    case LoginUser:
+    if(action is LoginUser){
       return User.init();
-      break;
+    }
 
-    case SaveUser:
-      return User.init();
-      break;
+    if(action is SaveUser){
+      return action.user;
+    }
 
-    default: return user;
-  }
+    return User.init();
+    
 
 }

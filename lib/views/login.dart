@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_reduxx/models/auth.dart';
+import 'package:flutter_reduxx/redux/actions.dart';
+import 'package:flutter_reduxx/redux/app_state.dart';
+import 'package:redux/redux.dart';
+
+import 'login_viewmodel.dart';
 
 
 class Login extends StatefulWidget {
+  Store<AppState> store;
+
+  Login(store);
+
   @override
-  _LoginState createState() => _LoginState();
+  _LoginState createState() => _LoginState(store);
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   String email = '';
   String password = '';
+  final Store<AppState> store;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
+
+  _LoginState(this.store);
 
   _displaySnackBar(BuildContext context) {
     final snackBar = SnackBar(
@@ -22,6 +36,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    // print(store);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -50,25 +65,33 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 10.0),
-                FlatButton(
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _displaySnackBar(context);
-                    }
-                  },
-                  color: Colors.pinkAccent,
-                  child: Text(
-                    'ZALOGUJ',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                new StoreConnector<AppState, LoginViewModel>(
+                  converter: ((Store<AppState> store) => LoginViewModel.create(store)),
+                  builder: (BuildContext context, LoginViewModel viewModel) => 
+                  FlatButton(
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          _displaySnackBar(context);
+                          await viewModel.login(Auth(email: email, password: password));
+                          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                        }
+                      },
+                      color: Colors.pinkAccent,
+                      child: Text(
+                        'ZALOGUJ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
                   ),
-                ),
               ],
             ),
         ),
       )
     );
   }
+
+  void buildDispatch(Store<AppState> store) => store.dispatch(LoginUser);
 }
