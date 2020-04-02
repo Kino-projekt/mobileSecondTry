@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'package:flutter_reduxx/views/home.dart';
+import 'package:flutter_reduxx/views/login.dart';
+import 'package:flutter_reduxx/views/register.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => Home(),
+          '/login': (context) => Login(),
+          '/register': (context) => Register(),
         },
     );
   }
