@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class DrawerAdmin extends StatefulWidget {
-  @override
-  _DrawerAdminState createState() => _DrawerAdminState();
-}
-
-class _DrawerAdminState extends State<DrawerAdmin> {
+class DrawerAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
