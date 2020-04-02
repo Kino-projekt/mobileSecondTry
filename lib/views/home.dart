@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
+import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
 import 'package:flutter_reduxx/components/filmList.dart';
 import 'package:flutter_reduxx/models/film.dart';
 import 'package:flutter_reduxx/models/showing.dart';
@@ -19,10 +21,25 @@ final List<Showing> showing = [
   Showing(film: Film(img: 'https://i.ytimg.com/vi/OqMN-lInSXw/hqdefault.jpg', title: 'Za szybcy za wśiekli', timeInMinutes: 120, minAge: 16), hour: '12:00', date: '20 października 2020'),
 ];
 
-Widget drawer = DrawerAnonymous();
+String role = 'ANON';
+
+Widget drawer;
+
+takeRole() {
+    switch (role) {
+    case 'ADMIN':
+      drawer = DrawerAdmin();
+      break;
+    case 'USER':
+      drawer = DrawerUser();
+      break;
+    default: drawer = DrawerAnonymous();
+  }
+}
 
   @override
   Widget build(BuildContext context) {
+    takeRole();
     return Scaffold(
       appBar: AppBar(
         title: Text('Apka'),
