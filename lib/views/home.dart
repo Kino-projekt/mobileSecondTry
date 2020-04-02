@@ -4,10 +4,13 @@ import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
 import 'package:flutter_reduxx/components/filmList.dart';
 import 'package:flutter_reduxx/models/film.dart';
+import 'package:flutter_reduxx/models/role.dart';
 import 'package:flutter_reduxx/models/showing.dart';
+import 'package:flutter_reduxx/redux/app_state.dart';
 
 
 class Home extends StatelessWidget {
+
 
 final List<Showing> showing = [
   Showing(film: Film(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', title: 'Shrek', timeInMinutes: 120, minAge: 3), hour: '12:00', date: '20 października 2020'),
@@ -21,16 +24,16 @@ final List<Showing> showing = [
   Showing(film: Film(img: 'https://i.ytimg.com/vi/OqMN-lInSXw/hqdefault.jpg', title: 'Za szybcy za wśiekli', timeInMinutes: 120, minAge: 16), hour: '12:00', date: '20 października 2020'),
 ];
 
-String role = 'ANON';
+Role role = Role.ANONYMOUS;
 
 Widget drawer;
 
 takeRole() {
     switch (role) {
-    case 'ADMIN':
+    case Role.ADMIN:
       drawer = DrawerAdmin();
       break;
-    case 'USER':
+    case Role.USER:
       drawer = DrawerUser();
       break;
     default: drawer = DrawerAnonymous();
