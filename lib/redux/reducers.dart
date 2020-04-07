@@ -18,6 +18,10 @@ User userReducers(User user, action) {
       return action.user;
     }
 
+    if(action is LogoutUser){
+      return User.init();
+    }
+
     return User.init();
     
 

@@ -17,3 +17,5 @@ class SaveUser {
 
 }
 
+class LogoutUser {}
+

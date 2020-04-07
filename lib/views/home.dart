@@ -47,7 +47,7 @@ final List<Showing> showing = [
           return DrawerAdmin();
           break;
         case Role.USER:
-          return DrawerUser();
+          return DrawerUser(store);
           break;
         default: return DrawerAnonymous();
       }
