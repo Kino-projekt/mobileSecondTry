@@ -3,8 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/redux/app_state.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 import 'package:flutter_reduxx/views/home.dart';
-import 'package:flutter_reduxx/views/login.dart';
-import 'package:flutter_reduxx/views/register.dart';
+import 'package:flutter_reduxx/views/Login/login.dart';
+import 'package:flutter_reduxx/views/Register/register.dart';
 import 'package:redux/redux.dart';
 
 Future<void> main() async {

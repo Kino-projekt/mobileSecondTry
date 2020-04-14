@@ -9,7 +9,7 @@ import 'package:redux/redux.dart';
 import 'app_state.dart';
 
 
-Future<User> logInUser(Auth auth) async {
+Future<User> logInUser(Auth auth, store) async {
   var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/auth/signin/', body: {
     "password": auth.password,
     "email": auth.email,
@@ -20,10 +20,10 @@ Future<User> logInUser(Auth auth) async {
       Role role = Role.USER;
       if(body[0]['role'] == 'ADMIN') role = Role.ADMIN;
       User user = User(email: body[0]['email'], id: body[0]['id'], role: role, token: body[1]['accessToken']);
-      return user;
+      return store.dispatch(SaveUser(user));
     } else {
       var body = jsonDecode(res.body);
-      String error = body['error'][0];
+      dynamic error = body['error'];
       print(error);
       return User.init();
     } 
@@ -32,12 +32,9 @@ Future<User> logInUser(Auth auth) async {
 
 void appStateMiddleware(
     Store<AppState> store, action, NextDispatcher next) async {
-  next(action);
 
   if(action is LoginUser){
-    await logInUser(action.auth)
-      .then((user) {
-        return store.dispatch(SaveUser(user));
-      });
+    await logInUser(action.auth, store);
   }
+  next(action);
 }

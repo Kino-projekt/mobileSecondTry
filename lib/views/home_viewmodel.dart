@@ -1,6 +1,4 @@
-import 'package:flutter_reduxx/models/auth.dart';
 import 'package:flutter_reduxx/models/user.dart';
-import 'package:flutter_reduxx/redux/actions.dart';
 import 'package:flutter_reduxx/redux/app_state.dart';
 import 'package:redux/redux.dart';
 

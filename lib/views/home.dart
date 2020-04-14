@@ -40,7 +40,7 @@ final List<Showing> showing = [
 
 
     takeRole(User user) {
-      Role role = user.role;
+      Role role = user != null ? user.role : Role.USER;
       // print(role);
         switch (role) {
         case Role.ADMIN:

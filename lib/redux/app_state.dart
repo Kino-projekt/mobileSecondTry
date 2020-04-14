@@ -9,6 +9,6 @@ class AppState {
     @required this.user,
   });
 
-  AppState.initialState() : user = User.init();
+  AppState.initialState() : user = null;
 
 }

@@ -36,7 +36,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // print(store);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -69,12 +68,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                   converter: ((Store<AppState> store) => LoginViewModel.create(store)),
                   builder: (BuildContext context, LoginViewModel viewModel) => 
                   FlatButton(
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          _displaySnackBar(context);
-                          await viewModel.login(Auth(email: email, password: password));
-                          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                      onPressed: () {
+                        if (!_formKey.currentState.validate()) {
+                          return;
                         }
+
+                        _displaySnackBar(context);
+                        viewModel.login(Auth(email: email, password: password));
+                        print(viewModel.user);
+                        // Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                       },
                       color: Colors.pinkAccent,
                       child: Text(
