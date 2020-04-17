@@ -63,8 +63,8 @@ static final List<Film> films = [
 ];
 
 static final List<News> news = [
-  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04'),
-  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04'),
+  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04', text:'Już od dzis mozecie ujrzeć na ekranie naszego kina ten świetny film!'),
+  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04', text:'Już od dzis mozecie ujrzeć na ekranie naszego kina ten świetny film!'),
 ];
 
 

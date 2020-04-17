@@ -22,7 +22,20 @@ class NewsCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text('${news.createDate} ${news.author}'),
+              subtitle: Text(news.text),
+              isThreeLine: true,
+              trailing: Text(news.createDate),
+            ),
+            // SizedBox(height: 10.0),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text(news.author),
+                ],
+              ),
             ),
             SizedBox(height: 10.0),
           ],
