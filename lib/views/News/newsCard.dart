@@ -26,7 +26,6 @@ class NewsCard extends StatelessWidget {
               isThreeLine: true,
               trailing: Text(news.createDate),
             ),
-            // SizedBox(height: 10.0),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),
               child: Row(
