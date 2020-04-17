@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reduxx/models/showing.dart';
 
-class FilmCard extends StatelessWidget {
+class ShowCard extends StatelessWidget {
 
   final Showing show;
 
-  FilmCard({this.show});
+  ShowCard({this.show});
 
 
   @override

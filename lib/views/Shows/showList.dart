@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reduxx/models/showing.dart';
 
-import 'filmCard.dart';
+import 'showCard.dart';
 
-class FilmList extends StatelessWidget {
+class ShowingList extends StatelessWidget {
 
   final List<Showing> showing;
 
-  FilmList({this.showing});
+  ShowingList({this.showing});
 
   List<Widget> makesSingleFromShowing() {
-    List<FilmCard> filmList = new List();
+    List<ShowCard> filmList = new List();
     for (Showing show in showing){
-      filmList.add(FilmCard(show: show));
+      filmList.add(ShowCard(show: show));
     }
     return filmList;
   }
