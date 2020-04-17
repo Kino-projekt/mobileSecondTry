@@ -3,6 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
+import 'package:flutter_reduxx/models/news.dart';
+import 'package:flutter_reduxx/views/News/newsList.dart';
 import 'Shows/showList.dart';
 import 'package:flutter_reduxx/models/film.dart';
 import 'package:flutter_reduxx/models/role.dart';
@@ -29,7 +31,7 @@ int _selectedIndex = 0;
 
 List<Widget> _widgetOptions = <Widget>[
 
-  Price(),
+  NewsList(news: news),
   ShowingList(showing: showing),
   Price(),
   Price(),
@@ -58,6 +60,11 @@ static final List<Showing> showing = [
 static final List<Film> films = [
   Film(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', title: 'Shrek', timeInMinutes: 120, minAge: 3),
   Film(img: 'https://techsetter.pl/wp-content/uploads/2019/12/rise_kubacki_main1.jpg', title: 'Star Wars', timeInMinutes: 170, minAge: 13),
+];
+
+static final List<News> news = [
+  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04'),
+  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04'),
 ];
 
 
