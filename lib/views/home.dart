@@ -15,6 +15,7 @@ import 'package:flutter_reduxx/redux/app_state.dart';
 import 'package:flutter_reduxx/views/Price/price.dart';
 import 'package:flutter_reduxx/views/home_viewmodel.dart';
 import 'package:redux/redux.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class Home extends StatefulWidget {
@@ -101,26 +102,26 @@ static final List<News> news = [
           backgroundColor: Colors.redAccent,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.black),
-              activeIcon: Icon(Icons.home, color: Colors.red),
+              icon: FaIcon(FontAwesomeIcons.newspaper, color: Colors.black),
+              activeIcon: FaIcon(FontAwesomeIcons.newspaper, color: Colors.red),
               title: Text('Nowości'),
               // backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.business, color: Colors.black),
-              activeIcon: Icon(Icons.business, color: Colors.red),
+              icon: Icon(Icons.slideshow, color: Colors.black),
+              activeIcon: Icon(Icons.slideshow, color: Colors.red),
               title: Text('Seanse'),
               // backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school, color: Colors.black),
-              activeIcon: Icon(Icons.school, color: Colors.red),
+              icon: FaIcon(FontAwesomeIcons.video, color: Colors.black),
+              activeIcon: FaIcon(FontAwesomeIcons.video, color: Colors.red),
               title: Text('Filmy'),
               // backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school, color: Colors.black),
-              activeIcon: Icon(Icons.school, color: Colors.red),
+              icon: Icon(Icons.attach_money, color: Colors.black),
+              activeIcon: Icon(Icons.attach_money, color: Colors.red),
               title: Text('Cennik'),
               // backgroundColor: Colors.black,
             ),
