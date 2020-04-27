@@ -6,13 +6,13 @@ import 'filmCard.dart';
 
 class FilmList extends StatelessWidget {
 
-  final List<Film> film;
+  final List<Film> films;
 
-  FilmList({this.film});
+  FilmList({this.films});
 
   List<Widget> makesSingleFromFilm() {
     List<FilmCard> filmList = new List();
-    for (Film film in film){
+    for (Film film in films){
       filmList.add(FilmCard(film: film));
     }
     return filmList;

@@ -22,9 +22,9 @@ class FilmCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(film.minAge.toString()),
+              subtitle: Text('Od lat: ${film.minAge.toString()}'),
               isThreeLine: true,
-              trailing: Text(film.timeInMinutes.toString()),
+              trailing: Text('Czas filmu: ${film.timeInMinutes.toString()}min'),
             ),
             // Padding(
             //   padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),

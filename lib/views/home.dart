@@ -4,6 +4,7 @@ import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
 import 'package:flutter_reduxx/models/news.dart';
+import 'package:flutter_reduxx/views/Films/filmList.dart';
 import 'package:flutter_reduxx/views/News/newsList.dart';
 import 'Shows/showList.dart';
 import 'package:flutter_reduxx/models/film.dart';
@@ -33,7 +34,7 @@ List<Widget> _widgetOptions = <Widget>[
 
   NewsList(news: news),
   ShowingList(showing: showing),
-  Price(),
+  FilmList(films: films),
   Price(),
 
 ];
