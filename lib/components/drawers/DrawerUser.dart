@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reduxx/redux/actions.dart';
 import 'package:flutter_reduxx/redux/app_state.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:redux/redux.dart';
 
 class DrawerUser extends StatefulWidget {
@@ -35,8 +36,8 @@ class _DrawerUserState extends State<DrawerUser> {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.send,
+            leading: FaIcon(
+              FontAwesomeIcons.signOutAlt,
               color: Colors.black,
             ),
             title: Text(
@@ -51,7 +52,7 @@ class _DrawerUserState extends State<DrawerUser> {
           ),
           ListTile(
             leading: Icon(
-              Icons.add_circle,
+              Icons.grade,
               color: Colors.black,
             ),
             title: Text(
@@ -65,8 +66,8 @@ class _DrawerUserState extends State<DrawerUser> {
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.add_circle,
+            leading: FaIcon(
+              FontAwesomeIcons.cog,
               color: Colors.black,
             ),
             title: Text(

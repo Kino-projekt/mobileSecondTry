@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class DrawerAdmin extends StatelessWidget {
@@ -22,8 +23,8 @@ class DrawerAdmin extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.send,
+            leading: FaIcon(
+              FontAwesomeIcons.signOutAlt,
               color: Colors.black,
             ),
             title: Text(
@@ -37,8 +38,23 @@ class DrawerAdmin extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.add_circle,
+            leading: FaIcon(
+              FontAwesomeIcons.newspaper,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Newsy',
+              style: TextStyle(
+                fontSize: 18.0
+                ),
+              ),
+            onTap: () {
+              Navigator.pushNamed(context, '/register');
+            },
+          ),
+          ListTile(
+            leading: FaIcon(
+              FontAwesomeIcons.film,
               color: Colors.black,
             ),
             title: Text(
@@ -53,22 +69,7 @@ class DrawerAdmin extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.add_circle,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Użytkownicy',
-              style: TextStyle(
-                fontSize: 18.0
-                ),
-              ),
-            onTap: () {
-              Navigator.pushNamed(context, '/register');
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.add_circle,
+              Icons.videocam,
               color: Colors.black,
             ),
             title: Text(
@@ -83,11 +84,11 @@ class DrawerAdmin extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.add_circle,
+              Icons.person,
               color: Colors.black,
             ),
             title: Text(
-              'Informacje',
+              'Użytkownicy',
               style: TextStyle(
                 fontSize: 18.0
                 ),
@@ -97,14 +98,30 @@ class DrawerAdmin extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(
-              Icons.add_circle,
+            leading: FaIcon(
+              FontAwesomeIcons.cog,
               color: Colors.black,
+            ),
+            title: Text(
+              'Ustawienia',
+              style: TextStyle(
+                fontSize: 18.0
+                ),
+              ),
+            onTap: () {
+              Navigator.pushNamed(context, '/register');
+            },
+          ),
+          ListTile(
+            leading: FaIcon(
+              FontAwesomeIcons.qrcode,
+              color: Colors.red,
             ),
             title: Text(
               'Sprawdzarka biletów',
               style: TextStyle(
-                fontSize: 18.0
+                fontSize: 18.0,
+                color: Colors.red,
                 ),
               ),
             onTap: () {

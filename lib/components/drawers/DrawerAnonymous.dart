@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerAnonymous extends StatelessWidget {
   @override
@@ -21,8 +22,8 @@ class DrawerAnonymous extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.send,
+            leading: FaIcon(
+              FontAwesomeIcons.signInAlt,
               color: Colors.black,
             ),
             title: Text(
@@ -37,7 +38,7 @@ class DrawerAnonymous extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              Icons.add_circle,
+              Icons.assignment,
               color: Colors.black,
             ),
             title: Text(

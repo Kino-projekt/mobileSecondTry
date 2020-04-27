@@ -75,7 +75,7 @@ static final List<News> news = [
 
 
     takeRole(User user) {
-      Role role = user != null ? user.role : Role.USER;
+      Role role = user != null ? user.role : Role.ANONYMOUS;
       // print(role);
         switch (role) {
         case Role.ADMIN:
