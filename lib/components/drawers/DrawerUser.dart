@@ -28,13 +28,26 @@ class _DrawerUserState extends State<DrawerUser> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              padding: EdgeInsets.fromLTRB(10.0, 100.0, 0, 0),
-              child: Text(
-                viewModel.user.email != '' ? viewModel.user.email : 'SCUTER',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-                )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                  viewModel.user.email != '' ? viewModel.user.email :'SCUTER',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  )),
+                  SizedBox(height: 10.0),
+                  Text(
+                  viewModel.user.role.toString().substring(5),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                    letterSpacing: 1.0,
+                  )),
+                ],
+              ),
               decoration: BoxDecoration(
                 color: Colors.black,
               ),
