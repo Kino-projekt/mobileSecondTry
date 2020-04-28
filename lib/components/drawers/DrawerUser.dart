@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_reduxx/components/drawers/drawer_viewmodel.dart';
 import 'package:flutter_reduxx/redux/actions.dart';
 import 'package:flutter_reduxx/redux/app_state.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,69 +20,72 @@ class _DrawerUserState extends State<DrawerUser> {
 
    @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Center(
-              child: Text('SCUTER',
+    return new StoreConnector(
+      converter: ((Store<AppState> store) => DrawerViewModel.create(store)),
+      builder: (BuildContext context, DrawerViewModel viewModel) =>
+      Drawer (
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              padding: EdgeInsets.fromLTRB(10.0, 100.0, 0, 0),
+              child: Text(
+                viewModel.user.email != '' ? viewModel.user.email : 'SCUTER',
               style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
                 color: Colors.white,
                 )),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.black,
-            ),
-          ),
-          ListTile(
-            leading: FaIcon(
-              FontAwesomeIcons.signOutAlt,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Wyloguj',
-              style: TextStyle(
-                fontSize: 18.0
-                ),
+              decoration: BoxDecoration(
+                color: Colors.black,
               ),
-            onTap: () {
-
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.grade,
-              color: Colors.black,
             ),
-            title: Text(
-              'Moje rezerwacje',
-              style: TextStyle(
-                fontSize: 18.0
-                ),
+            ListTile(
+              leading: Icon(
+                Icons.grade,
+                color: Colors.black,
               ),
-            onTap: () {
-              Navigator.pushNamed(context, '/register');
-            },
-          ),
-          ListTile(
-            leading: FaIcon(
-              FontAwesomeIcons.cog,
-              color: Colors.black,
+              title: Text(
+                'Moje rezerwacje',
+                style: TextStyle(
+                  fontSize: 18.0
+                  ),
+                ),
+              onTap: () {
+                Navigator.pushNamed(context, '/register');
+              },
             ),
-            title: Text(
-              'Ustawienia',
-              style: TextStyle(
-                fontSize: 18.0
-                ),
+            ListTile(
+              leading: FaIcon(
+                FontAwesomeIcons.cog,
+                color: Colors.black,
               ),
-            onTap: () {
-              Navigator.pushNamed(context, '/register');
-            },
-          ),
-        ],
+              title: Text(
+                'Ustawienia',
+                style: TextStyle(
+                  fontSize: 18.0
+                  ),
+                ),
+              onTap: () {
+                Navigator.pushNamed(context, '/register');
+              },
+            ),
+            ListTile(
+              leading: FaIcon(
+                FontAwesomeIcons.signOutAlt,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Wyloguj',
+                style: TextStyle(
+                  fontSize: 18.0
+                  ),
+                ),
+              onTap: () {
+                viewModel.logoutUser();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

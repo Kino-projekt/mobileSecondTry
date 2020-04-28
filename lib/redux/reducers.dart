@@ -25,6 +25,11 @@ AppState userReducers(action, state) {
       return AppState(user: User.init(), isLoading: false, error: action.error);
     }
 
+    if(action is LogoutStart){
+      return AppState(user: User.init(), isLoading: false, error: '');
+    }
+
+
     return AppState.initialState();
     
 
