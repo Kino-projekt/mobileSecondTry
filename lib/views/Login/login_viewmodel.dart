@@ -6,29 +6,35 @@ import 'package:redux/redux.dart';
 
 class LoginViewModel{
 
-  final Future Function(Auth auth) login;
+  final Function(Auth auth) loginUser;
   final User user;
+  final bool isLoading;
+  final String error;
 
-  LoginViewModel({this.login, this.user});
+  LoginViewModel({this.loginUser, this.user, this.isLoading, this.error});
 
   static LoginViewModel fromStore(Store<AppState> store){
     return LoginViewModel(
-    login: (Auth auth) async {
+    loginUser: (Auth auth) {
         return store.dispatch(LoginUser(auth: auth));
       },
       user: store.state.user,
+      isLoading: store.state.isLoading,
+      error: store.state.error
     );
   }
 
   factory LoginViewModel.create(Store<AppState> store) {
 
-    Future _login(Auth auth) async {
+    _login(Auth auth) {
       return store.dispatch(LoginUser(auth: auth));
     }
 
     return LoginViewModel(
-      login: _login,
+      loginUser: _login,
       user: store.state.user,
+      isLoading: store.state.isLoading,
+      error: store.state.error
     );
   }
 

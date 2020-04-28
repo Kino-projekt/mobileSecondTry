@@ -47,7 +47,7 @@ class _DrawerUserState extends State<DrawerUser> {
                 ),
               ),
             onTap: () {
-             store.dispatch(LogoutUser);
+
             },
           ),
           ListTile(

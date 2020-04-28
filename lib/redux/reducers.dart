@@ -3,26 +3,29 @@ import 'package:flutter_reduxx/redux/actions.dart';
 import 'app_state.dart';
 
 AppState appStateReducer(AppState state, dynamic action) {
-  return AppState(
-    user: userReducers(state.user, action),
-  );
+  var newState =  userReducers(action, state);
+  return AppState(user: newState.user, isLoading: newState.isLoading, error: newState.error);
 }
 
-User userReducers(User user, action) {
+AppState userReducers(action, state) {
 
     if(action is LoginUser){
-      return User.init();
+      return AppState(user: state.user, isLoading: state.isLoading, error: state.error);
     }
 
-    if(action is SaveUser){
-      return action.user;
+    if(action is LoginStart){
+      return AppState(user: state.user, isLoading: true, error: '');
     }
 
-    if(action is LogoutUser){
-      return User.init();
+    if(action is LoginSuccess){
+      return AppState(user: action.user, isLoading: false, error: '');
     }
 
-    return User.init();
+    if(action is LoginError){
+      return AppState(user: User.init(), isLoading: false, error: action.error);
+    }
+
+    return AppState.initialState();
     
 
 }
