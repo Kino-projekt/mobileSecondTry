@@ -29,6 +29,10 @@ AppState userReducers(action, state) {
       return AppState(user: User.init(), isLoading: false, error: '');
     }
 
+    if(action is LoadingFromDBSuccess){
+      return AppState(user: User.init(), isLoading: false, error: '', films: action.films, articles: action.articles);
+    }
+
 
     return AppState.initialState();
     

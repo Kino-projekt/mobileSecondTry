@@ -10,11 +10,11 @@ import 'app_state.dart';
 
 loginUser(Auth auth, store) async { 
   try {
-    store.dispatch(LoginStart());
+    store.dispatch(LoadingStart());
     var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/auth/signin/', body: {
-    "password": auth.password,
-    "email": auth.email,
-  });
+      "password": auth.password,
+      "email": auth.email,
+    });
 
   if(res.statusCode == 200) {
       var body = await jsonDecode(res.body);
@@ -29,12 +29,31 @@ loginUser(Auth auth, store) async {
 
 }
 
+getData(store) async {
+  try {
+    store.dispatch(LoadingStart());
+    var articles = await http.get('https://afternoon-waters-37189.herokuapp.com/api/articles/');
+    var movies = await http.get('https://afternoon-waters-37189.herokuapp.com/api/movies/');
+    var moviesBody = await jsonDecode(movies.body);
+    var articlesBody = await jsonDecode(articles.body);
+
+    moviesBody.map((movie) => print(movie));
+    // return store.dispatch(LoadingFromDBSuccess(articles: articlesBody, films: moviesBody));
+  } catch(err) {
+    return store.dispatch(LoadingFromDBError());
+  }
+}
+
+
 
 void appStateMiddleware(
     Store<AppState> store, action, NextDispatcher next) async {
 
   if(action is LoginUser){
     await loginUser(action.auth, store);
+  }
+   if(action is LoadingFromDBStart){
+    await getData(store);
   }
   next(action);
 }

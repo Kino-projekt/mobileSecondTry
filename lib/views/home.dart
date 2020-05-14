@@ -3,9 +3,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
-import 'package:flutter_reduxx/models/news.dart';
+import 'package:flutter_reduxx/models/article.dart';
+import 'package:flutter_reduxx/redux/actions.dart';
+import 'package:flutter_reduxx/views/Articles/articleList.dart';
 import 'package:flutter_reduxx/views/Films/filmList.dart';
-import 'package:flutter_reduxx/views/News/newsList.dart';
 import 'Shows/showList.dart';
 import 'package:flutter_reduxx/models/film.dart';
 import 'package:flutter_reduxx/models/role.dart';
@@ -31,13 +32,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 int _selectedIndex = 0;
 
-List<Widget> _widgetOptions = <Widget>[
+static final List<Showing> showing = [
+  Showing(film: Film(id: 1, title: 'axsd', createdAt: new DateTime(2020), director: 'asdasd', description: 'asdasfasd'), date: 'asdasf', hour: '12:00')
+];
 
-  NewsList(news: news),
-  ShowingList(showing: showing),
-  FilmList(films: films),
-  Price(),
-
+static final List<Article> articles = [
+  Article(id: 1, description: 'asdasd0', status: 'xd', createdAt: new DateTime(2020))
 ];
 
 void _onItemTapped(int index) {
@@ -46,34 +46,17 @@ void _onItemTapped(int index) {
   });
 }
 
-static final List<Showing> showing = [
-  Showing(film: Film(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', title: 'Shrek', timeInMinutes: 120, minAge: 3), hour: '12:00', date: '20 października 2020'),
-  Showing(film: Film(img: 'https://techsetter.pl/wp-content/uploads/2019/12/rise_kubacki_main1.jpg', title: 'Star Wars', timeInMinutes: 170, minAge: 13), hour: '21:00', date: '21 października 2020'),
-  Showing(film: Film(img: 'https://i.ytimg.com/vi/OqMN-lInSXw/hqdefault.jpg', title: 'Za szybcy za wśiekli', timeInMinutes: 120, minAge: 16), hour: '12:00', date: '20 października 2020'),
-  Showing(film: Film(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', title: 'Shrek', timeInMinutes: 120, minAge: 3), hour: '12:00', date: '20 października 2020'),
-  Showing(film: Film(img: 'https://techsetter.pl/wp-content/uploads/2019/12/rise_kubacki_main1.jpg', title: 'Star Wars', timeInMinutes: 170, minAge: 13), hour: '21:00', date: '21 października 2020'),
-  Showing(film: Film(img: 'https://i.ytimg.com/vi/OqMN-lInSXw/hqdefault.jpg', title: 'Za szybcy za wśiekli', timeInMinutes: 120, minAge: 16), hour: '12:00', date: '20 października 2020'),
-  Showing(film: Film(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', title: 'Shrek', timeInMinutes: 120, minAge: 3), hour: '12:00', date: '20 października 2020'),
-  Showing(film: Film(img: 'https://techsetter.pl/wp-content/uploads/2019/12/rise_kubacki_main1.jpg', title: 'Star Wars', timeInMinutes: 170, minAge: 13), hour: '21:00', date: '21 października 2020'),
-  Showing(film: Film(img: 'https://i.ytimg.com/vi/OqMN-lInSXw/hqdefault.jpg', title: 'Za szybcy za wśiekli', timeInMinutes: 120, minAge: 16), hour: '12:00', date: '20 października 2020'),
-];
-
-
-static final List<Film> films = [
-  Film(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', title: 'Shrek', timeInMinutes: 120, minAge: 3),
-  Film(img: 'https://techsetter.pl/wp-content/uploads/2019/12/rise_kubacki_main1.jpg', title: 'Star Wars', timeInMinutes: 170, minAge: 13),
-];
-
-static final List<News> news = [
-  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04', text:'Już od dzis mozecie ujrzeć na ekranie naszego kina ten świetny film!'),
-  News(img: 'https://bi.im-g.pl/im/15/b7/15/z22769941Q,Shrek.jpg', content: 'Schrek już w kinach!', author: 'Paweł Jadach', createDate: '17.04', text:'Już od dzis mozecie ujrzeć na ekranie naszego kina ten świetny film!'),
-];
-
-
   @override
   Widget build(BuildContext context) {
 
+  List<Widget> _widgetOptions = <Widget>[
 
+        ArticleList(articles: articles),
+        ShowingList(showing: showing),
+        FilmList(),
+        Price(),
+
+      ];
     takeRole(User user) {
       Role role = user != null ? user.role : Role.ANONYMOUS;
       // print(role);
@@ -89,7 +72,11 @@ static final List<News> news = [
     }
     return new StoreConnector<AppState, HomeViewModel>(
       converter: ((Store<AppState> store) => HomeViewModel.create(store)),
-      builder: (BuildContext context, HomeViewModel viewModel) =>  
+      onInit: (store) async {
+        store.dispatch(LoadingFromDBStart());
+      },
+      builder: (BuildContext context, HomeViewModel viewModel) => 
+      
       Scaffold (
         appBar: AppBar(
           title: Text('Apka'),

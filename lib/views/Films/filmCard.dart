@@ -15,16 +15,16 @@ class FilmCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: Image.network(film.img),
+              leading: Image.network('https://rzeszow-news.pl/wp-content/uploads/2020/05/cinema-4153289_640.jpg'),
               title: Text(
                 film.title.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text('Od lat: ${film.minAge.toString()}'),
+              subtitle: Text(film.description),
               isThreeLine: true,
-              trailing: Text('Czas filmu: ${film.timeInMinutes.toString()}min'),
+              trailing: Text(film.director),
             ),
             // Padding(
             //   padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),

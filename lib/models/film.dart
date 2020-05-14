@@ -1,10 +1,11 @@
 class Film {
 
+  final int id;
   final String title;
-  final int timeInMinutes;
-  final int minAge;
-  final String img;
+  final String description;
+  final String director;
+  final DateTime createdAt;
 
-  Film({this.img, this.title, this.timeInMinutes, this.minAge});
+  Film({this.id, this.title, this.description, this.director, this.createdAt});
 
 }
