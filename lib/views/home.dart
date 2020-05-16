@@ -4,26 +4,19 @@ import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
 import 'package:flutter_reduxx/models/article.dart';
-import 'package:flutter_reduxx/redux/actions.dart';
+import 'package:flutter_reduxx/redux/login/login_state.dart';
+import 'package:flutter_reduxx/redux/store.dart';
 import 'package:flutter_reduxx/views/Articles/articleList.dart';
 import 'package:flutter_reduxx/views/Films/filmList.dart';
 import 'Shows/showList.dart';
 import 'package:flutter_reduxx/models/film.dart';
-import 'package:flutter_reduxx/models/role.dart';
 import 'package:flutter_reduxx/models/showing.dart';
 import 'package:flutter_reduxx/models/user.dart';
-import 'package:flutter_reduxx/redux/app_state.dart';
 import 'package:flutter_reduxx/views/Price/price.dart';
-import 'package:flutter_reduxx/views/home_viewmodel.dart';
-import 'package:redux/redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class Home extends StatefulWidget {
-
-  final Store<AppState> store;
-
-  Home(this.store);
 
   @override
   _HomeState createState() => _HomeState();
@@ -58,30 +51,26 @@ void _onItemTapped(int index) {
 
       ];
     takeRole(User user) {
-      Role role = user != null ? user.role : Role.ANONYMOUS;
-      // print(role);
-        switch (role) {
-        case Role.ADMIN:
+      
+        switch (user.role) {
+        case 'ADMIN':
           return DrawerAdmin();
           break;
-        case Role.USER:
-          return DrawerUser(widget.store);
+        case 'USER':
+          return DrawerUser();
           break;
         default: return DrawerAnonymous();
       }
     }
-    return new StoreConnector<AppState, HomeViewModel>(
-      converter: ((Store<AppState> store) => HomeViewModel.create(store)),
-      onInit: (store) async {
-        store.dispatch(LoadingFromDBStart());
-      },
-      builder: (BuildContext context, HomeViewModel viewModel) => 
-      
+  return
+    StoreConnector<AppState, LoginState>(
+      converter: ((store) => store.state.loginState),
+      builder: (context, loginState) => 
       Scaffold (
         appBar: AppBar(
           title: Text('Apka'),
         ),
-        drawer: takeRole(viewModel.user),
+        drawer: takeRole(loginState.user),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),

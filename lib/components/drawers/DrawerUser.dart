@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/components/drawers/drawer_viewmodel.dart';
-import 'package:flutter_reduxx/redux/actions.dart';
-import 'package:flutter_reduxx/redux/app_state.dart';
+import 'package:flutter_reduxx/redux/store.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:redux/redux.dart';
 
 class DrawerUser extends StatefulWidget {
 
 
-  DrawerUser(store);
-
   @override
   _DrawerUserState createState() => _DrawerUserState();
 }
 
 class _DrawerUserState extends State<DrawerUser> {
-  Store<AppState> store;
 
    @override
   Widget build(BuildContext context) {

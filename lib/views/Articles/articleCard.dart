@@ -15,7 +15,6 @@ class ArticleCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: Image.network('https://images.ctfassets.net/mk9nps9h607g/5DnT6NoTCguwc4egkiGcIg/b3f22bef3f59efa5b8711c8268cde80a/article-placeholder.jpg'),
               title: Text(
                 'NEWS',
                 style: TextStyle(

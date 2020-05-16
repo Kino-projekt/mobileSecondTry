@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_reduxx/components/drawers/drawer_viewmodel.dart';
-import 'package:flutter_reduxx/redux/app_state.dart';
+import 'package:flutter_reduxx/redux/login/login_actions.dart';
+import 'package:flutter_reduxx/redux/login/login_state.dart';
+import 'package:flutter_reduxx/redux/store.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:redux/redux.dart';
 
 
 class DrawerAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector (
-      converter: ((Store<AppState> store) => DrawerViewModel.create(store)),
-      builder: (BuildContext context, DrawerViewModel viewModel) => 
+    return StoreConnector<AppState, LoginState>(
+      converter: ((store) => store.state.loginState),
+      builder: (context, loginState) => 
       Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -22,14 +22,14 @@ class DrawerAdmin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                  viewModel.user.email != '' ? viewModel.user.email :'SCUTER',
+                  loginState.user.email != '' ? loginState.user.email :'SCUTER',
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,
                   )),
                   SizedBox(height: 10.0),
                   Text(
-                  viewModel.user.role.toString().substring(5),
+                  loginState.user.role.toString().substring(5),
                   style: TextStyle(
                     fontSize: 15.0,
                     color: Colors.white,
@@ -143,8 +143,8 @@ class DrawerAdmin extends StatelessWidget {
                   fontSize: 18.0
                   ),
                 ),
-              onTap: () {
-                viewModel.logoutUser();
+              onTap: () async {
+                await Redux.store.dispatch(logoutUser(Redux.store));
               },
             ),
           ],

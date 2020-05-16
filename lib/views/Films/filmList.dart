@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_reduxx/models/film.dart';
-import 'package:flutter_reduxx/redux/app_state.dart';
+import 'package:flutter_reduxx/redux/store.dart';
 import 'package:redux/redux.dart';
 
-import 'filmCard.dart';
-import 'filmList_viewmodel.dart';
 
 
 class FilmList extends StatelessWidget {
@@ -22,14 +19,8 @@ class FilmList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, FilmListViewModel>(
-      converter: ((Store<AppState> store) => FilmListViewModel.create(store)),
-      builder: (BuildContext context, FilmListViewModel viewModel) =>
-        ListView(
-          scrollDirection: Axis.vertical,
-          children: makesSingleFromFilm(viewModel.films),
-          ));
-        }
+    return
+      Text('Films'); 
+  }
 }
       
-  

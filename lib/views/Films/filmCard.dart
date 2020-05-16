@@ -15,7 +15,6 @@ class FilmCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: Image.network('https://rzeszow-news.pl/wp-content/uploads/2020/05/cinema-4153289_640.jpg'),
               title: Text(
                 film.title.toUpperCase(),
                 style: TextStyle(

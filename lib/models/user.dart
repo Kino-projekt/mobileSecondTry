@@ -1,13 +1,19 @@
-import 'package:flutter_reduxx/models/role.dart';
-
 class User {
 
-  final String email;
-  final String token;
-  final int id;
-  final Role role;
+  String email;
+  String token;
+  int id;
+  String role;
 
-  User({this.email, this.token, this.id, this.role = Role.ANONYMOUS});
+  User({this.email, this.token, this.id, this.role});
+
+  User.fromJson(List<dynamic> json) {
+    if (json == null) return;
+    email = json[0]['email'];
+    id = json[0]['id'];
+    role = json[0]['role'];
+    token = json[1]['token'];
+  }
   
-  User.init() : email = '', id = null, role = Role.ANONYMOUS, token = '';
+  User.init() : email = null, id = null, role = 'ANONYMOUS', token = null;
 }
