@@ -14,7 +14,7 @@ Future<void> registerUser({Auth auth, store}) async {
   try {
     store.dispatch(SetRegisterStateAction(RegisterState(isLoading: true, isError: false, isSuccess: false)));
     
-    var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/auth/signin/', body: {
+    var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/auth/signup/', body: {
       "password": auth.password,
       "email": auth.email,
     });
@@ -27,9 +27,3 @@ Future<void> registerUser({Auth auth, store}) async {
     return store.dispatch(SetRegisterStateAction(RegisterState(isLoading: false, isError: true, isSuccess: false)));
   }
 }
-
-Future<void> logoutUser (store) async {
-  print('wylogowywanie');
-  return store.dispatch(SetRegisterStateAction(RegisterState.initial()));
-}
-
