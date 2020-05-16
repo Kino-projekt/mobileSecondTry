@@ -23,6 +23,7 @@ Future<void> loginUser({Auth auth, store}) async {
   if(res.statusCode == 200) {
       var body = await json.decode(res.body);
       User user = User.fromJson(body);
+      print(user.role);
       return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: false, user: user)));
     } else {
       return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: true)));

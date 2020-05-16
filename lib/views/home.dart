@@ -56,7 +56,7 @@ void _onItemTapped(int index) {
         case 'ADMIN':
           return DrawerAdmin();
           break;
-        case 'USER':
+        case 'CUSTOMER':
           return DrawerUser();
           break;
         default: return DrawerAnonymous();

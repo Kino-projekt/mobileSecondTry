@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reduxx/models/auth.dart';
+import 'package:flutter_reduxx/redux/login/login_actions.dart';
+import 'package:flutter_reduxx/redux/store.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -42,7 +45,7 @@ class _RegisterState extends State<Register> {
                 SizedBox(height: 10.0),
                 FlatButton(
                   onPressed: () {
-                    if (_formKey.currentState.validate()) print(email + password);
+                    if (_formKey.currentState.validate()) print('valid');
                   },
                   color: Colors.pinkAccent,
                   
