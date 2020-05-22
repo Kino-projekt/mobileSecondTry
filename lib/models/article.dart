@@ -1,22 +1,21 @@
 class Article {
 
   int id;
+  String title;
   String description;
   String status;
-  DateTime createdAt;
+  String createdAt;
+  int userId;
 
-  Article({this.id, this.description, this.status, this.createdAt});
+  Article({this.id, this.description, this.status, this.createdAt, this.title, this.userId});
 
-  Article.fromJson(Map<String, dynamic> json) {
-    if (json == null) return;
-    id = json['id'];
-    description = json['description'];
-    status = json['status'];
-    createdAt = json['createdAt'];
+  Article.fromJson(dynamic json) {
+    var id = json['id'];
+    var title = json['title'];
+    var description = json['description'];
+    var status = json['status'];
+    var createdAt = json['createdAt'];
+    var userId = json['userId'];
+    Article(createdAt: createdAt, id: id, title: title, description: description, status: status, userId: userId);
   }
-
-  static List<Article> listFromJson(List<dynamic> json) {
-    return json == null ? List<Article>() : json.map((value) => Article.fromJson(value)).toList();
-  }
-
 }

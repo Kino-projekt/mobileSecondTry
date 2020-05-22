@@ -13,7 +13,7 @@ class SetInitialStateAction {
   SetInitialStateAction(this.initialState);
 }
 
-Future<void> getData({Auth auth, store}) async { 
+Future<void> getData({store}) async { 
   try {
     store.dispatch(SetInitialStateAction(InitialState(isLoading: true, isError: false, isSuccess: false)));
     
@@ -22,8 +22,15 @@ Future<void> getData({Auth auth, store}) async {
   if(articlesResponse.statusCode == 200 && filmsResponse.statusCode == 200) {
       var articlesBody = await json.decode(articlesResponse.body);
       var filmsBody = await json.decode(filmsResponse.body);
-      List<Film> films = Film.listFromJson(filmsBody);
-      List<Article> articles = Article.listFromJson(articlesBody);
+      List<Article> articles = new List();
+      List<Film> films = new List();
+      for (var item in articlesBody) {
+        articles.add(Article.fromJson(item));
+      }
+      for (var item in filmsBody) {
+        films.add(Film.fromJson(item));
+      }
+
       return store.dispatch(SetInitialStateAction(InitialState(isLoading: false, isError: false, isSuccess: true, films: films, articles: articles)));
     } else {
       return store.dispatch(SetInitialStateAction(InitialState(isLoading: false, isError: true, isSuccess: false)));

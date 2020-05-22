@@ -4,10 +4,13 @@ import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
 import 'package:flutter_reduxx/models/article.dart';
+import 'package:flutter_reduxx/redux/initial/initial_actions.dart';
 import 'package:flutter_reduxx/redux/login/login_state.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 import 'package:flutter_reduxx/views/Articles/articleList.dart';
 import 'package:flutter_reduxx/views/Films/filmList.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'Shows/showList.dart';
 import 'package:flutter_reduxx/models/film.dart';
 import 'package:flutter_reduxx/models/showing.dart';
@@ -26,11 +29,11 @@ class _HomeState extends State<Home> {
 int _selectedIndex = 0;
 
 static final List<Showing> showing = [
-  Showing(film: Film(id: 1, title: 'axsd', createdAt: new DateTime(2020), director: 'asdasd', description: 'asdasfasd'), date: 'asdasf', hour: '12:00')
+  Showing(film: Film(id: 1, title: 'axsd', createdAt: 'new DateTime(2020)', director: 'asdasd', description: 'asdasfasd'), date: 'asdasf', hour: '12:00')
 ];
 
 static final List<Article> articles = [
-  Article(id: 1, description: 'asdasd0', status: 'xd', createdAt: new DateTime(2020))
+  Article(id: 1, description: 'asdasd0', status: 'xd', createdAt: 'xdxd')
 ];
 
 void _onItemTapped(int index) {
@@ -44,7 +47,7 @@ void _onItemTapped(int index) {
 
   List<Widget> _widgetOptions = <Widget>[
 
-        ArticleList(articles: articles),
+        ArticleList(),
         ShowingList(showing: showing),
         FilmList(),
         Price(),
@@ -63,14 +66,20 @@ void _onItemTapped(int index) {
       }
     }
   return
-    StoreConnector<AppState, LoginState>(
-      converter: ((store) => store.state.loginState),
-      builder: (context, loginState) => 
+    StoreConnector<AppState, AppState>(
+      converter: ((store) => store.state),
+      onInit: Redux.store.dispatch(getData(store: Redux.store)),
+      builder: (context, state) => 
+      state.initialState.isLoading ? 
+      Center(
+        child: Loading(indicator: BallPulseIndicator(), size: 100.0),
+      )
+      :
       Scaffold (
         appBar: AppBar(
           title: Text('Apka'),
         ),
-        drawer: takeRole(loginState.user),
+        drawer: takeRole(state.loginState.user),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
@@ -107,6 +116,7 @@ void _onItemTapped(int index) {
           onTap: _onItemTapped,
         ),
       )
+
     );
   }
 }

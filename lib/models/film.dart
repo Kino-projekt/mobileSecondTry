@@ -4,7 +4,7 @@ class Film {
   String title;
   String description;
   String director;
-  DateTime createdAt;
+  String createdAt;
 
   Film({this.id, this.title, this.description, this.director, this.createdAt});
 

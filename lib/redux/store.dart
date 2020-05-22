@@ -28,7 +28,7 @@ AppState appReducer(AppState state, dynamic action) {
   if (action is SetInitialStateAction) {
     final nextInitialState = initialReducer(state.initialState, action);
 
-    return state.copyWith(registerState: nextInitialState);
+    return state.copyWith(initialState: nextInitialState);
   }
 
   return state;
