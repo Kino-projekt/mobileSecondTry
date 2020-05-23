@@ -28,11 +28,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 int _selectedIndex = 0;
 
-static final List<Showing> showing = [
-  Showing(film: Film(id: 1, title: 'axsd', createdAt: 'new DateTime(2020)', director: 'asdasd', description: 'asdasfasd'), date: 'asdasf', hour: '12:00')
-];
-
-
 void _onItemTapped(int index) {
   setState(() {
     _selectedIndex = index;
@@ -45,7 +40,7 @@ void _onItemTapped(int index) {
   List<Widget> _widgetOptions = <Widget>[
 
         ArticleList(),
-        ShowingList(showing: showing),
+        ShowingList(),
         FilmList(),
         Price(),
 
@@ -87,25 +82,21 @@ void _onItemTapped(int index) {
               icon: FaIcon(FontAwesomeIcons.newspaper, color: Colors.black),
               activeIcon: FaIcon(FontAwesomeIcons.newspaper, color: Colors.red),
               title: Text('Nowości'),
-              // backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.slideshow, color: Colors.black),
               activeIcon: Icon(Icons.slideshow, color: Colors.red),
               title: Text('Seanse'),
-              // backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.video, color: Colors.black),
               activeIcon: FaIcon(FontAwesomeIcons.video, color: Colors.red),
               title: Text('Filmy'),
-              // backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.attach_money, color: Colors.black),
               activeIcon: Icon(Icons.attach_money, color: Colors.red),
               title: Text('Cennik'),
-              // backgroundColor: Colors.black,
             ),
           ],
           currentIndex: _selectedIndex,
@@ -113,7 +104,6 @@ void _onItemTapped(int index) {
           onTap: _onItemTapped,
         ),
       )
-
     );
   }
 }

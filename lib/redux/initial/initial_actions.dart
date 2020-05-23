@@ -14,9 +14,9 @@ class SetInitialStateAction {
 }
 
 Future<void> getData({store}) async { 
+    if(store.state.initialState.isSuccess == true) return;
   try {
     store.dispatch(SetInitialStateAction(InitialState(isLoading: true, isError: false, isSuccess: false)));
-    
     var articlesResponse = await http.get('https://afternoon-waters-37189.herokuapp.com/api/articles/');
     var filmsResponse = await http.get('https://afternoon-waters-37189.herokuapp.com/api/movies/');
   if(articlesResponse.statusCode == 200 && filmsResponse.statusCode == 200) {

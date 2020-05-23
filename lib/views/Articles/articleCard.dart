@@ -24,7 +24,7 @@ class ArticleCard extends StatelessWidget {
               ),
               subtitle: Text(article.description),
               isThreeLine: true,
-              trailing: Text('${date.day} ${date.month} ${date.year}'),
+              trailing: Text('${date.day}.${date.month}.${date.year}'),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),

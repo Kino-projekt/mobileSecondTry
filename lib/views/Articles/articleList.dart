@@ -23,7 +23,7 @@ class ArticleList extends StatelessWidget {
       distinct: true,
       converter: (store) => store.state.initialState,
       builder: (context, initialState) {
-       return initialState.articles.length > 0 ? ListView(
+       return initialState.articles != null && initialState.articles.length > 0 ? ListView(
           scrollDirection: Axis.vertical,
           children: makesSingleFromNews(initialState.articles),
         ) : (
