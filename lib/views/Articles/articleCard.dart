@@ -7,23 +7,24 @@ class ArticleCard extends StatelessWidget {
 
   ArticleCard({this.article});
 
-
   @override
   Widget build(BuildContext context) {
+    var date = DateTime.parse(article.createdAt);
+
     return Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
               title: Text(
-                'NEWS',
+                article.title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               subtitle: Text(article.description),
               isThreeLine: true,
-              trailing: Text(article.createdAt.toString()),
+              trailing: Text('${date.day} ${date.month} ${date.year}'),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),

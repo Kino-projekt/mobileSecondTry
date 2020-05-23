@@ -9,13 +9,16 @@ class Article {
 
   Article({this.id, this.description, this.status, this.createdAt, this.title, this.userId});
 
-  Article.fromJson(dynamic json) {
-    var id = json['id'];
-    var title = json['title'];
-    var description = json['description'];
-    var status = json['status'];
-    var createdAt = json['createdAt'];
-    var userId = json['userId'];
-    Article(createdAt: createdAt, id: id, title: title, description: description, status: status, userId: userId);
+  String get articleTitle {
+    return title;
   }
+
+  Article.fromJson(Map<String, dynamic> json) 
+    :id = json['id'],
+    title = json['title'],
+    description = json['description'],
+    status = json['status'],
+    createdAt = json['createdAt'],
+    userId = json['userId'];
+  
 }

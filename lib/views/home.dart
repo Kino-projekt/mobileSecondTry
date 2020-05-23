@@ -32,9 +32,6 @@ static final List<Showing> showing = [
   Showing(film: Film(id: 1, title: 'axsd', createdAt: 'new DateTime(2020)', director: 'asdasd', description: 'asdasfasd'), date: 'asdasf', hour: '12:00')
 ];
 
-static final List<Article> articles = [
-  Article(id: 1, description: 'asdasd0', status: 'xd', createdAt: 'xdxd')
-];
 
 void _onItemTapped(int index) {
   setState(() {

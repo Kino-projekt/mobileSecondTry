@@ -23,14 +23,12 @@ class ArticleList extends StatelessWidget {
       distinct: true,
       converter: (store) => store.state.initialState,
       builder: (context, initialState) {
-        print(initialState.articles.map((article) => print(article.title)));
-       return initialState.articles.length < 0 ? ListView(
+       return initialState.articles.length > 0 ? ListView(
           scrollDirection: Axis.vertical,
           children: makesSingleFromNews(initialState.articles),
         ) : (
-           Text('Articles')
+           Text('Brak artykułów do wyświetlenia')
         );
-        // print(initialState.articles);
       }
     );
   }

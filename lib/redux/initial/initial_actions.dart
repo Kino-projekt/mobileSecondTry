@@ -22,16 +22,18 @@ Future<void> getData({store}) async {
   if(articlesResponse.statusCode == 200 && filmsResponse.statusCode == 200) {
       var articlesBody = await json.decode(articlesResponse.body);
       var filmsBody = await json.decode(filmsResponse.body);
-      List<Article> articles = new List();
+      // List<Article> newArticlesList = articlesBody.map((article) => Article.fromJson(article)).toList();
+      List<Article> newArticlesList = List();
       List<Film> films = new List();
       for (var item in articlesBody) {
-        articles.add(Article.fromJson(item));
+        var newArticle = Article.fromJson(item);
+        newArticlesList.add(newArticle);
       }
       for (var item in filmsBody) {
         films.add(Film.fromJson(item));
       }
 
-      return store.dispatch(SetInitialStateAction(InitialState(isLoading: false, isError: false, isSuccess: true, films: films, articles: articles)));
+      return store.dispatch(SetInitialStateAction(InitialState(isLoading: false, isError: false, isSuccess: true, films: films, articles: newArticlesList)));
     } else {
       return store.dispatch(SetInitialStateAction(InitialState(isLoading: false, isError: true, isSuccess: false)));
     }
