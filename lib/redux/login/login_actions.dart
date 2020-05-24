@@ -33,7 +33,6 @@ Future<void> loginUser({Auth auth, store}) async {
 }
 
 Future<void> logoutUser (store) async {
-  print('wylogowywanie');
   return store.dispatch(SetLoginStateAction(LoginState.initial()));
 }
 

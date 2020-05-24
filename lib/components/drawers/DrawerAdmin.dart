@@ -53,7 +53,7 @@ class DrawerAdmin extends StatelessWidget {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/articles');
               },
             ),
             ListTile(

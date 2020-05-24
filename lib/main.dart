@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/redux/store.dart';
+import 'package:flutter_reduxx/views/AdminViews/Articles/adminArticleList.dart';
 import 'package:flutter_reduxx/views/home.dart';
 import 'package:flutter_reduxx/views/Login/login.dart';
 import 'package:flutter_reduxx/views/Register/register.dart';
-import 'package:redux/redux.dart';
 
 void main() async {
 
@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           '/': (BuildContext context) => Home(),
           '/login': (BuildContext context) => Login(),
           '/register': (BuildContext context) => Register(),
+          '/articles': (BuildContext context) => AdminArticleList(),
         },
       )
     );
