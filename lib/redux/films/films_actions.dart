@@ -12,11 +12,10 @@ class SetFilmsStateAction {
 }
 
 Future<void> getFilms({store}) async { 
-  print('films action');
   if(store.state.filmsState.isSuccess == true) return;
   try {
     store.dispatch(SetFilmsStateAction(FilmsState(isLoading: true, isError: false, isSuccess: false)));
-    var filmsResponse = await http.get('https://afternoon-waters-37189.herokuapp.com/api/films/');
+    var filmsResponse = await http.get('https://afternoon-waters-37189.herokuapp.com/api/movies/');
 
     if(filmsResponse.statusCode == 200) {
         var filmsBody = await json.decode(filmsResponse.body);
@@ -25,7 +24,7 @@ Future<void> getFilms({store}) async {
           var newFilm = Film.fromJson(item);
           films.add(newFilm);
         }
-        print(films);
+
         return store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: false, isSuccess: true, films: films)));
       } else {
         return store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: true, isSuccess: false)));

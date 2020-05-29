@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/models/article.dart';
-import 'package:flutter_reduxx/redux/initial/initial_state.dart';
+import 'package:flutter_reduxx/redux/articles/articles_state.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 
 import 'adminArticleCard.dart';
@@ -39,10 +39,10 @@ class _AdminArticleListState extends State<AdminArticleList> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, InitialState>(
+    return StoreConnector<AppState, ArticlesState>(
       distinct: true,
-      converter: (store) => store.state.initialState,
-      builder: (context, initialState) {
+      converter: (store) => store.state.articlesState,
+      builder: (context, state) {
        return Scaffold(
             appBar: AppBar(
                 title: Text('Artykuły'),
@@ -96,9 +96,9 @@ class _AdminArticleListState extends State<AdminArticleList> {
               backgroundColor: Colors.black,
               child: Icon(Icons.add),
               ),
-            body: initialState.articles != null && initialState.articles.length > 0 ? ListView(
+            body: state.articles != null && state.articles.length > 0 ? ListView(
             scrollDirection: Axis.vertical,
-            children: makesSingleFromNews(initialState.articles),
+            children: makesSingleFromNews(state.articles),
           ) : (
              Text('Brak artykułów do wyświetlenia')
           ),

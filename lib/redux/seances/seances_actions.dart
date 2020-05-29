@@ -13,7 +13,8 @@ class SetSeancesStateAction {
 }
 
 Future<void> getSeances({store}) async { 
-  if(store.state.seances.isSuccess == true) return;
+
+  if(store.state.seancesState.isSuccess == true) return;
 
   try {
     store.dispatch(SetSeancesStateAction(SeancesState(isLoading: true, isError: false, isSuccess: false)));

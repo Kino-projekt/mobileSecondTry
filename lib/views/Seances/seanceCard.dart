@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reduxx/models/seances.dart';
+import 'package:flutter_reduxx/models/seance.dart';
 
 class SeanceCard extends StatelessWidget {
 
-  final Seances seance;
+  final Seance seance;
 
   SeanceCard({this.seance});
 
@@ -21,7 +21,7 @@ class SeanceCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text('${seance.date} ${seance.hour}'),
+              subtitle: Text('${seance.film.title} ${seance.date}'),
             ),
             SizedBox(height: 10.0),
             ButtonBar(
