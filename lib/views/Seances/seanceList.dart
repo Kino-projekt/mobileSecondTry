@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_reduxx/models/showing.dart';
+import 'package:flutter_reduxx/models/seances.dart';
 import 'package:flutter_reduxx/redux/initial/initial_state.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 
-import 'showCard.dart';
+import 'seanceCard.dart';
 
-class ShowingList extends StatelessWidget {
+class SeanceList extends StatelessWidget {
 
 
-  List<Widget> makesSingleFromShowing(showing) {
-    List<ShowCard> showingList = new List();
-    for (Showing show in showing){
-      showingList.add(ShowCard(show: show));
+  List<Widget> makesSingleFromSeances(seances) {
+    List<SeanceCard> seancesList = new List();
+    for (Seances seance in seances){
+      seancesList.add(SeanceCard(seance: seance));
     }
-    return showingList;
+    return seancesList;
   }
 
   @override
@@ -25,7 +25,7 @@ class ShowingList extends StatelessWidget {
       builder: (context, initialState) {
        return initialState.shows != null && initialState.shows.length > 0 ? ListView(
           scrollDirection: Axis.vertical,
-          children: makesSingleFromShowing(initialState.shows),
+          children: makesSingleFromSeances(initialState.shows),
         ) : (
            Text('Brak senasów do wyświetlenia')
         );

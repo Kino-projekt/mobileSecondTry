@@ -1,16 +1,22 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_reduxx/redux/initial/initial_actions.dart';
-import 'package:flutter_reduxx/redux/initial/initial_state.dart';
+import 'package:flutter_reduxx/redux/articles/articles_state.dart';
 import 'package:flutter_reduxx/redux/login/login_actions.dart';
 import 'package:flutter_reduxx/redux/login/login_reducer.dart';
 import 'package:flutter_reduxx/redux/login/login_state.dart';
 import 'package:flutter_reduxx/redux/register/register_actions.dart';
 import 'package:flutter_reduxx/redux/register/register_reducer.dart';
 import 'package:flutter_reduxx/redux/register/register_state.dart';
+import 'package:flutter_reduxx/redux/seances/seances_reducer.dart';
+import 'package:flutter_reduxx/redux/seances/seances_state.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-import 'initial/initial_reducer.dart';
+import 'articles/articles_actions.dart';
+import 'articles/articles_reducer.dart';
+import 'films/films_actions.dart';
+import 'films/films_reducer.dart';
+import 'films/films_state.dart';
+import 'seances/seances_actions.dart';
 
 AppState appReducer(AppState state, dynamic action) {
   if (action is SetLoginStateAction) {
@@ -25,10 +31,22 @@ AppState appReducer(AppState state, dynamic action) {
     return state.copyWith(registerState: nextRegisterState);
   }
 
-  if (action is SetInitialStateAction) {
-    final nextInitialState = initialReducer(state.initialState, action);
+  if (action is SetFilmsStateAction) {
+    final nextInitialState = filmsReducer(state.filmsState, action);
 
-    return state.copyWith(initialState: nextInitialState);
+    return state.copyWith(filmsState: nextInitialState);
+  }
+
+  if (action is SetArticlesStateAction) {
+    final nextInitialState = articlesReducer(state.articlesState, action);
+
+    return state.copyWith(articlesState: nextInitialState);
+  }
+
+  if (action is SetSeancesStateAction) {
+    final nextInitialState = seancesReducer(state.seancesState, action);
+
+    return state.copyWith(seancesState: nextInitialState);
   }
 
   return state;
@@ -38,23 +56,31 @@ class AppState {
   
   final LoginState loginState;
   final RegisterState registerState;
-  final InitialState initialState;
+  final FilmsState filmsState;
+  final ArticlesState articlesState;
+  final SeancesState seancesState;
 
   AppState({
     @required this.loginState,
     @required this.registerState,
-    @required this.initialState,
+    @required this.filmsState,
+    @required this.articlesState,
+    @required this.seancesState,
   });
 
   AppState copyWith({
     LoginState loginState,
     RegisterState registerState,
-    InitialState initialState,
+    FilmsState filmsState,
+    ArticlesState articlesState,
+    SeancesState seancesState,
   }) {
     return AppState(
       loginState: loginState ?? this.loginState,
       registerState: registerState ?? this.registerState,
-      initialState: initialState ?? this.initialState,
+      filmsState: filmsState ?? this.filmsState,
+      articlesState: articlesState ?? this.articlesState,
+      seancesState: seancesState ?? this.seancesState,
     );
   }
 }
@@ -73,12 +99,20 @@ class Redux {
   static Future<void> init() async {
     final loginStateInitial = LoginState.initial();
     final registerStateInitial = RegisterState.initial();
-    final initialStateInitial = InitialState.initial();
+    final filmStateInitial = FilmsState.initial();
+    final articlesStateInitial = ArticlesState.initial();
+    final seancesStateInitial = SeancesState.initial();
 
     _store = Store<AppState>(
       appReducer,
       middleware: [thunkMiddleware],
-      initialState: AppState(loginState: loginStateInitial, registerState: registerStateInitial, initialState: initialStateInitial),
+      initialState: AppState(
+        loginState: loginStateInitial, 
+        registerState: registerStateInitial, 
+        filmsState: filmStateInitial, 
+        articlesState: articlesStateInitial,
+        seancesState: seancesStateInitial,
+      ),
     );
   }
 }

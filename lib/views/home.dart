@@ -3,17 +3,13 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAdmin.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerAnonymous.dart';
 import 'package:flutter_reduxx/components/drawers/DrawerUser.dart';
-import 'package:flutter_reduxx/models/article.dart';
 import 'package:flutter_reduxx/redux/initial/initial_actions.dart';
-import 'package:flutter_reduxx/redux/login/login_state.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 import 'package:flutter_reduxx/views/Articles/articleList.dart';
 import 'package:flutter_reduxx/views/Films/filmList.dart';
+import 'package:flutter_reduxx/views/Seances/seanceList.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
-import 'Shows/showList.dart';
-import 'package:flutter_reduxx/models/film.dart';
-import 'package:flutter_reduxx/models/showing.dart';
 import 'package:flutter_reduxx/models/user.dart';
 import 'package:flutter_reduxx/views/Price/price.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +36,7 @@ void _onItemTapped(int index) {
   List<Widget> _widgetOptions = <Widget>[
 
         ArticleList(),
-        ShowingList(),
+        SeanceList(),
         FilmList(),
         Price(),
 
@@ -60,13 +56,7 @@ void _onItemTapped(int index) {
   return
     StoreConnector<AppState, AppState>(
       converter: ((store) => store.state),
-      onInit: Redux.store.dispatch(getData(store: Redux.store)),
       builder: (context, state) => 
-      state.initialState.isLoading ? 
-      Center(
-        child: Loading(indicator: BallPulseIndicator(), size: 100.0),
-      )
-      :
       Scaffold (
         appBar: AppBar(
           title: Text('Apka'),

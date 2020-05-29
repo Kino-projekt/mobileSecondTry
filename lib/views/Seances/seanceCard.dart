@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reduxx/models/showing.dart';
+import 'package:flutter_reduxx/models/seances.dart';
 
-class ShowCard extends StatelessWidget {
+class SeanceCard extends StatelessWidget {
 
-  final Showing show;
+  final Seances seance;
 
-  ShowCard({this.show});
+  SeanceCard({this.seance});
 
 
   @override
@@ -16,12 +16,12 @@ class ShowCard extends StatelessWidget {
           children: <Widget>[
             ListTile(
               title: Text(
-                show.film.title.toUpperCase(),
+                seance.film.title.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text('${show.date} ${show.hour}'),
+              subtitle: Text('${seance.date} ${seance.hour}'),
             ),
             SizedBox(height: 10.0),
             ButtonBar(
