@@ -13,10 +13,8 @@ import 'articleCard.dart';
 class ArticleList extends StatelessWidget {
 
   List<Widget> makesSingleFromNews(articles) {
-    List<ArticleCard> articleList = new List();
-    for (Article article in articles){
-      articleList.add(ArticleCard(article: article));
-    }
+    List active = articles.where((article) => article.status == "ACTIVE").toList();
+    List<ArticleCard> articleList = active.map<ArticleCard>((article) => ArticleCard(article: article)).toList();
     return articleList;
   }
 

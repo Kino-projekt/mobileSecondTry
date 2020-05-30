@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reduxx/models/article.dart';
+import 'package:flutter_reduxx/redux/articles/articles_actions.dart';
+import 'package:flutter_reduxx/redux/store.dart';
 
 class AdminArticleCard extends StatefulWidget {
 
@@ -8,18 +10,14 @@ class AdminArticleCard extends StatefulWidget {
   AdminArticleCard({this.article});
 
   @override
-  _AdminArticleCardState createState() => _AdminArticleCardState(dropdownValue: article.status);
+  _AdminArticleCardState createState() => _AdminArticleCardState();
 }
 
 class _AdminArticleCardState extends State<AdminArticleCard> {
-    String dropdownValue;
-
-    _AdminArticleCardState({this.dropdownValue});
 
   @override
   Widget build(BuildContext context) {
     var date = DateTime.parse(widget.article.createdAt);
-    print(dropdownValue);
     return Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -35,19 +33,13 @@ class _AdminArticleCardState extends State<AdminArticleCard> {
               isThreeLine: true,
               trailing: Text('${date.day}.${date.month}.${date.year}'),
               leading: 
-                DropdownButton(
-                  value: dropdownValue,
-                  items: [
-                    DropdownMenuItem(child: Text('Unactive'), value: '${widget.article.id}-1'),
-                    DropdownMenuItem(child: Text('Active'), value: '${widget.article.id}-1'),
-                  ],
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
-                  },
-                ),
-                
+              FlatButton(
+                onPressed: () {
+                  toggleActive(store: Redux.store, status: widget.article.status == "ACTIVE" ? "INACTIVE" : "ACTIVE", articleId: widget.article.id);
+                },
+                child: Text(widget.article.status),
+                color: widget.article.status == "ACTIVE" ? Colors.greenAccent : Colors.redAccent
+              )    
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),
@@ -64,6 +56,7 @@ class _AdminArticleCardState extends State<AdminArticleCard> {
                             actions: [
                               FlatButton(
                                 onPressed: () {
+                                  deleteArticle(articleId: widget.article.id, store: Redux.store);
                                   Navigator.of(context).pop();
                                 },
                                 textColor: Colors.redAccent,

@@ -44,7 +44,7 @@ class _AdminArticleListState extends State<AdminArticleList> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ArticlesState>(
       distinct: true,
-      onInit: Redux.store.dispatch(getArticles(store: Redux.store)),
+      onInit: Redux.store.dispatch(getAdminArticles(store: Redux.store)),
       converter: (store) => store.state.articlesState,
       builder: (context, state) {
        return Scaffold(
@@ -100,9 +100,11 @@ class _AdminArticleListState extends State<AdminArticleList> {
               backgroundColor: Colors.black,
               child: Icon(Icons.add),
               ),
-            body: state.isLoading ? (
-              Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.black)
-              ) : state.articles != null && state.articles.length > 0 
+            body: state.isLoading ? Center(
+              child: (
+                Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.black)
+                ),
+            ) : state.articles != null && state.articles.length > 0 
               ? ListView(
                 scrollDirection: Axis.vertical,
                 children: makesSingleFromNews(state.articles),

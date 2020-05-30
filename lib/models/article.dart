@@ -13,12 +13,12 @@ class Article {
     return title;
   }
 
-  Article.fromJson(Map<String, dynamic> json) 
-    :id = json['id'],
-    title = json['title'],
-    description = json['description'],
-    status = json['status'],
-    createdAt = json['createdAt'],
+  Article.fromJson(Map<String, dynamic> json){ 
+    id = json['id'];
+    title = json['title'];
+    description = json['description'];
+    status = json['status'];
+    createdAt = json['createdAt'];
     userId = json['userId'];
-  
+  }
 }
