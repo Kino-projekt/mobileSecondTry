@@ -1,19 +1,22 @@
+import 'package:flutter_reduxx/models/hall.dart';
 import 'film.dart';
 
 class Seance {
 
+  int id;
   Film film;
-  int hallId;
+  Hall hall;
   String date;
   List occupiedSeats;
 
-  Seance({this.film, this.hallId, this.date, this.occupiedSeats});
+  Seance({this.film, this.hall, this.date, this.occupiedSeats, this.id});
 
-  Seance.fromJson(Map<String, dynamic> json, Film film) {
+  Seance.fromJson(Map<String, dynamic> json) {
     if (json == null) return;
-    film = film;
-    hallId = json['hallId'];
+    film = Film.fromJson(json['movie']);
+    hall = Hall.fromJson(json['hall']);
     date = json['date'];
+    id = json['id'];
     occupiedSeats = json['occupiedSeats'];
   }
 }

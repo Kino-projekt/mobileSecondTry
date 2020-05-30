@@ -22,18 +22,15 @@ Future<void> getSeances({store}) async {
 
     if(seancesResponse.statusCode == 200) {
         var seancesBody = await json.decode(seancesResponse.body);
-        List<Seance> seances = List();
-        for (var item in seancesBody) {
-          Film film = await store.state.films.films.any((film) => film.id == seancesBody['movieId']);
-          var newSeance = Seance.fromJson(item, film);
-          seances.add(newSeance);
-        }
+        List<Seance> seances = seancesBody.map<Seance>((seance) => Seance.fromJson(seance)).toList();
+
         return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: false, isSuccess: true, seances: seances)));
       } else {
         return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: true, isSuccess: false)));
       }
   } catch (err) {
-    return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: err, isSuccess: false)));
+    print(err);
+    // return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: err, isSuccess: false)));
   }
 }
 

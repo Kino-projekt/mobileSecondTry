@@ -56,11 +56,6 @@ void _onItemTapped(int index) {
       converter: ((store) => store.state),
       onInit: Redux.store.dispatch(getUserFromLocal(store: Redux.store)),
       builder: (context, state) => 
-      // state.initialState.isLoading ? 
-      // Center(
-      //   child: Loading(indicator: BallPulseIndicator(), size: 100.0),
-      // )
-      // :
       Scaffold (
         appBar: AppBar(
           title: Text('Apka'),

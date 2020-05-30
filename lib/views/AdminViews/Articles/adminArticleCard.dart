@@ -8,13 +8,13 @@ class AdminArticleCard extends StatefulWidget {
   AdminArticleCard({this.article});
 
   @override
-  _AdminArticleCardState createState() => _AdminArticleCardState();
+  _AdminArticleCardState createState() => _AdminArticleCardState(dropdownValue: article.status);
 }
 
 class _AdminArticleCardState extends State<AdminArticleCard> {
-    String dropdownValue = '3';
+    String dropdownValue;
 
-
+    _AdminArticleCardState({this.dropdownValue});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class _AdminArticleCardState extends State<AdminArticleCard> {
                 DropdownButton(
                   value: dropdownValue,
                   items: [
-                    DropdownMenuItem(child: Text('Unactive'), value: 'Unactive',),
-                    DropdownMenuItem(child: Text('Active'), value: 'Active',),
+                    DropdownMenuItem(child: Text('Unactive'), value: '${widget.article.id}-1'),
+                    DropdownMenuItem(child: Text('Active'), value: '${widget.article.id}-1'),
                   ],
                   onChanged: (String newValue) {
                     setState(() {

@@ -1,3 +1,4 @@
+import 'package:flutter_reduxx/models/comment.dart';
 import 'package:flutter_reduxx/models/film.dart';
 import 'package:flutter_reduxx/redux/films/films_state.dart';
 import 'package:http/http.dart' as http;
@@ -19,18 +20,16 @@ Future<void> getFilms({store}) async {
 
     if(filmsResponse.statusCode == 200) {
         var filmsBody = await json.decode(filmsResponse.body);
-        List<Film> films = List();
-        for (var item in filmsBody) {
-          var newFilm = Film.fromJson(item);
-          films.add(newFilm);
-        }
+
+        List<Film> films = filmsBody.map<Film>((film) => Film.fromJson(film)).toList();
 
         return store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: false, isSuccess: true, films: films)));
       } else {
         return store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: true, isSuccess: false)));
       }
   } catch (err) {
-    return store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: err, isSuccess: false)));
+    print(err);
+    // return store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: err, isSuccess: false)));
   }
 }
 

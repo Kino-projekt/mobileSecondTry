@@ -1,4 +1,5 @@
 class Auth {
+  
   final String email;
   final String password;
 

@@ -47,7 +47,7 @@ class DrawerAdmin extends StatelessWidget {
                 color: Colors.black,
               ),
               title: Text(
-                'Newsy',
+                'Artykuły',
                 style: TextStyle(
                   fontSize: 18.0
                   ),
@@ -68,7 +68,7 @@ class DrawerAdmin extends StatelessWidget {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/seances');
               },
             ),
             ListTile(
@@ -83,7 +83,7 @@ class DrawerAdmin extends StatelessWidget {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/films');
               },
             ),
             ListTile(
@@ -98,7 +98,7 @@ class DrawerAdmin extends StatelessWidget {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/users');
               },
             ),
             ListTile(
@@ -113,7 +113,7 @@ class DrawerAdmin extends StatelessWidget {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/settings');
               },
             ),
             ListTile(
@@ -129,7 +129,7 @@ class DrawerAdmin extends StatelessWidget {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/ticketChecker');
               },
             ),
             ListTile(

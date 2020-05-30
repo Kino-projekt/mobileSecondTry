@@ -51,6 +51,21 @@ class DrawerAnonymous extends StatelessWidget {
               Navigator.pushNamed(context, '/register');
             },
           ),
+          ListTile(
+            leading: Icon(
+              FontAwesomeIcons.cog,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Ustawienia',
+              style: TextStyle(
+                fontSize: 18.0
+                ),
+              ),
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+          ),
         ],
       ),
     );

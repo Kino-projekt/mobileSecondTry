@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/models/article.dart';
+import 'package:flutter_reduxx/redux/articles/articles_actions.dart';
 import 'package:flutter_reduxx/redux/articles/articles_state.dart';
 import 'package:flutter_reduxx/redux/store.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 
 import 'adminArticleCard.dart';
 
@@ -24,16 +27,16 @@ class _AdminArticleListState extends State<AdminArticleList> {
 
   String title = '';
   String description = '';
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
-  Widget getTextWidgets(List<String> errors)
-  {
-    List<Widget> errorWidget = new List<Widget>();
-    for(var i = 0; i < errors.length; i++){
-        errorWidget.add(new Text(errors[i], style: TextStyle(color: Colors.redAccent)));
-    }
-    return new Row(children: errorWidget);
-  }
+  // Widget getTextWidgets(List<String> errors)
+  // {
+  //   List<Widget> errorWidget = new List<Widget>();
+  //   for(var i = 0; i < errors.length; i++){
+  //       errorWidget.add(new Text(errors[i], style: TextStyle(color: Colors.redAccent)));
+  //   }
+  //   return new Row(children: errorWidget);
+  // }
 
   
 
@@ -41,6 +44,7 @@ class _AdminArticleListState extends State<AdminArticleList> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ArticlesState>(
       distinct: true,
+      onInit: Redux.store.dispatch(getArticles(store: Redux.store)),
       converter: (store) => store.state.articlesState,
       builder: (context, state) {
        return Scaffold(
@@ -96,11 +100,14 @@ class _AdminArticleListState extends State<AdminArticleList> {
               backgroundColor: Colors.black,
               child: Icon(Icons.add),
               ),
-            body: state.articles != null && state.articles.length > 0 ? ListView(
-            scrollDirection: Axis.vertical,
-            children: makesSingleFromNews(state.articles),
-          ) : (
-             Text('Brak artykułów do wyświetlenia')
+            body: state.isLoading ? (
+              Loading(indicator: BallPulseIndicator(), size: 100.0, color: Colors.black)
+              ) : state.articles != null && state.articles.length > 0 
+              ? ListView(
+                scrollDirection: Axis.vertical,
+                children: makesSingleFromNews(state.articles),
+              ) : (
+              Text('Brak artykułów do wyświetlenia')
           ),
        );
       }

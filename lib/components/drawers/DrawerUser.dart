@@ -67,7 +67,7 @@ class _DrawerUserState extends State<DrawerUser> {
                   ),
                 ),
               onTap: () {
-                Navigator.pushNamed(context, '/register');
+                Navigator.pushNamed(context, '/settings');
               },
             ),
             ListTile(

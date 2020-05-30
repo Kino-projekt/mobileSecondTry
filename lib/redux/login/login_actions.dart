@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_reduxx/models/auth.dart';
 import 'package:flutter_reduxx/models/user.dart';
 import 'package:flutter_reduxx/redux/login/login_state.dart';
@@ -24,10 +26,9 @@ Future<void> loginUser({Auth auth, store}) async {
     });
   if(res.statusCode == 200) {
       var body = await json.decode(res.body);
-      User user = User.fromJson(body);
-      await prefs.setString('email', user.email);
-      await prefs.setString('role', user.role);
-      await prefs.setString('token', user.token);
+      User user = User.fromJson(body[0]);
+
+      await prefs.setString('token', body[1]['accessToken']);
       await prefs.setInt('id', user.id);
       return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: false, user: user)));
     } else {
@@ -47,16 +48,23 @@ Future<void> logoutUser (store) async {
 Future<void> getUserFromLocal({store}) async {
   if(store.state.loginState.isInitialized == true) return;
   store.dispatch(SetLoginStateAction(LoginState(isLoading: true, isError: false)));
+  try {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  if(prefs.getKeys().length == 4){
-    var email = prefs.getString('email');
-    var id = prefs.getInt('id');
-    var token = prefs.getString('token');
-    var role = prefs.getString('role');
-    User user = User(email: email, role: role, id: id, token: token);
-    return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: false, user: user, isInitialized: true)));
+      var id = prefs.getInt('id');
+      var token = prefs.getString('token');
+      var res = await http.get('https://afternoon-waters-37189.herokuapp.com/api/users/$id', headers: {HttpHeaders.authorizationHeader: token});
+
+      if(res.statusCode == 200){
+        var body = await json.decode(res.body);
+        User user = User.fromJson(body);
+
+        return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: false, user: user, isInitialized: true)));
+      } else {
+        return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: false, user: User.init(), isInitialized: true)));
+      }
+  } catch(err){
+    print(err);
   }
-    return store.dispatch(SetLoginStateAction(LoginState(isLoading: false, isError: false, isInitialized: true)));
 }
 

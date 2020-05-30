@@ -1,19 +1,17 @@
 class User {
 
   String email;
-  String token;
   int id;
   String role;
 
-  User({this.email, this.token, this.id, this.role});
+  User({this.email, this.id, this.role});
 
-  User.fromJson(List<dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     if (json == null) return;
-    email = json[0]['email'];
-    id = json[0]['id'];
-    role = json[0]['role'];
-    token = json[1]['accessToken'];
+    email = json['email'];
+    id = json['id'];
+    role = json['role'];
   }
   
-  User.init() : email = null, id = null, role = 'ANONYMOUS', token = null;
+  User.init() : email = null, id = null, role = 'ANONYMOUS';
 }

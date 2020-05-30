@@ -7,9 +7,9 @@ class SeanceCard extends StatelessWidget {
 
   SeanceCard({this.seance});
 
-
   @override
   Widget build(BuildContext context) {
+    var date = DateTime.parse(seance.date);
     return Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -21,7 +21,7 @@ class SeanceCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text('${seance.film.title} ${seance.date}'),
+              subtitle: Text('${date.day}.${date.month}.${date.year}'),
             ),
             SizedBox(height: 10.0),
             ButtonBar(
