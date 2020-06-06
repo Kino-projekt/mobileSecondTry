@@ -89,8 +89,32 @@ Future<void> deleteArticle({store, articleId}) async {
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
 
-    print(articlesResponse.statusCode);
     if(articlesResponse.statusCode == 204) {
+
+        return store.dispatch(getAdminArticles(store: store));
+    } else {
+        return store.dispatch(SetArticlesStateAction(ArticlesState(isLoading: false, isError: true, isSuccess: false)));
+      }
+  } catch (err) {
+    return store.dispatch(SetArticlesStateAction(ArticlesState(isLoading: false, isError: err, isSuccess: false)));
+  }
+}
+
+Future<void> addArticle({store, title, description}) async { 
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  try {
+    store.dispatch(SetArticlesStateAction(ArticlesState(isLoading: true, isError: false, isSuccess: false)));
+    String token = prefs.getString('token');
+
+    var articlesResponse = await http.post('https://afternoon-waters-37189.herokuapp.com/api/admin/articles', 
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+      body: {
+        "title": title,
+        "description": description,
+      }
+    );
+    print(articlesResponse.statusCode);
+    if(articlesResponse.statusCode == 201) {
 
         return store.dispatch(getAdminArticles(store: store));
     } else {
