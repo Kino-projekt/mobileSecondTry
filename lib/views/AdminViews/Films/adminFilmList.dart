@@ -59,54 +59,56 @@ class _AdminFilmListState extends State<AdminFilmList> {
                 showDialog(
                 context: context,
                 builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: Text('Dodawanie nowego filmu'),
-                    content: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                        TextFormField(
-                          onChanged: (val) => setState(() => title = val),
-                          validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                          decoration: InputDecoration(
-                            labelText: 'Tytuł'
+                  SingleChildScrollView(
+                                      child: AlertDialog(
+                      title: Text('Dodawanie nowego filmu'),
+                      content: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                          TextFormField(
+                            onChanged: (val) => setState(() => title = val),
+                            validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
+                            decoration: InputDecoration(
+                              labelText: 'Tytuł'
+                            ),
                           ),
+                          TextFormField(
+                            onChanged: (val) => setState(() => director = val),
+                            validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
+                            decoration: InputDecoration(
+                              labelText: 'Producent'
+                            ),
+                          ),
+                          TextFormField(
+                            maxLines: 3,
+                            onChanged: (val) => setState(() => description = val),
+                            validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
+                            decoration: InputDecoration(
+                              labelText: 'Treść'
+                            ),
+                          ),
+                        ],
                         ),
-                        TextFormField(
-                          onChanged: (val) => setState(() => director = val),
-                          validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                          decoration: InputDecoration(
-                            labelText: 'Producent'
-                          ),
+                      ),
+                      actions: [
+                        FlatButton(
+                          onPressed: () async {
+                            await Redux.store.dispatch(addFilm(store: Redux.store, title: title, director: director, description: description));
+                            Navigator.of(context).pop();
+                          },
+                          textColor: Colors.greenAccent,
+                          child: Text('DODAJ')
                         ),
-                        TextFormField(
-                          maxLines: 3,
-                          onChanged: (val) => setState(() => description = val),
-                          validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                          decoration: InputDecoration(
-                            labelText: 'Treść'
-                          ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          textColor: Colors.black,
+                          child: Text('ANULUJ')
                         ),
                       ],
-                      ),
                     ),
-                    actions: [
-                      FlatButton(
-                        onPressed: () async {
-                          await Redux.store.dispatch(addFilm(store: Redux.store, title: title, director: director, description: description));
-                          Navigator.of(context).pop();
-                        },
-                        textColor: Colors.greenAccent,
-                        child: Text('DODAJ')
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        textColor: Colors.black,
-                        child: Text('ANULUJ')
-                      ),
-                    ],
                   )
                 );
               },
