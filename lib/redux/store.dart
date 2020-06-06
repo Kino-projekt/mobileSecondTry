@@ -8,6 +8,9 @@ import 'package:flutter_reduxx/redux/register/register_reducer.dart';
 import 'package:flutter_reduxx/redux/register/register_state.dart';
 import 'package:flutter_reduxx/redux/seances/seances_reducer.dart';
 import 'package:flutter_reduxx/redux/seances/seances_state.dart';
+import 'package:flutter_reduxx/redux/users/users_actions.dart';
+import 'package:flutter_reduxx/redux/users/users_reducer.dart';
+import 'package:flutter_reduxx/redux/users/users_state.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -49,6 +52,11 @@ AppState appReducer(AppState state, dynamic action) {
     return state.copyWith(seancesState: nextInitialState);
   }
 
+  if (action is SetUsersStateAction) {
+    final nextInitialState = usersReduce(state.usersState, action);
+
+    return state.copyWith(usersState: nextInitialState);
+  }
   return state;
 }
 
@@ -59,6 +67,7 @@ class AppState {
   final FilmsState filmsState;
   final ArticlesState articlesState;
   final SeancesState seancesState;
+  final UsersState usersState;
 
   AppState({
     @required this.loginState,
@@ -66,6 +75,7 @@ class AppState {
     @required this.filmsState,
     @required this.articlesState,
     @required this.seancesState,
+    @required this.usersState,
   });
 
   AppState copyWith({
@@ -74,6 +84,7 @@ class AppState {
     FilmsState filmsState,
     ArticlesState articlesState,
     SeancesState seancesState,
+    UsersState usersState,
   }) {
     return AppState(
       loginState: loginState ?? this.loginState,
@@ -81,6 +92,7 @@ class AppState {
       filmsState: filmsState ?? this.filmsState,
       articlesState: articlesState ?? this.articlesState,
       seancesState: seancesState ?? this.seancesState,
+      usersState: usersState ?? this.usersState,
     );
   }
 }
@@ -102,6 +114,7 @@ class Redux {
     final filmStateInitial = FilmsState.initial();
     final articlesStateInitial = ArticlesState.initial();
     final seancesStateInitial = SeancesState.initial();
+    final usersStateInitial = UsersState.initial();
 
     _store = Store<AppState>(
       appReducer,
@@ -112,6 +125,7 @@ class Redux {
         filmsState: filmStateInitial, 
         articlesState: articlesStateInitial,
         seancesState: seancesStateInitial,
+        usersState: usersStateInitial,
       ),
     );
   }

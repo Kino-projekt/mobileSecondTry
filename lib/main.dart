@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 import 'package:flutter_reduxx/views/AdminViews/Articles/adminArticleList.dart';
+import 'package:flutter_reduxx/views/AdminViews/Users/adminUserList.dart';
 import 'package:flutter_reduxx/views/Settings/settings.dart';
 import 'package:flutter_reduxx/views/home.dart';
 import 'package:flutter_reduxx/views/Login/login.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           '/articles': (BuildContext context) => AdminArticleList(),
           '/seances': (BuildContext context) => AdminArticleList(),
           '/films': (BuildContext context) => AdminArticleList(),
-          '/users': (BuildContext context) => AdminArticleList(),
+          '/users': (BuildContext context) => AdminUserList(),
           '/ticketChecker': (BuildContext context) => AdminArticleList(),
         },
       )

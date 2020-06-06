@@ -26,16 +26,6 @@ class ArticleCard extends StatelessWidget {
               isThreeLine: true,
               trailing: Text('${date.day}.${date.month}.${date.year}'),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),
-              // child: Row(
-              //   crossAxisAlignment: CrossAxisAlignment.end,
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: <Widget>[
-              //     Text(article.author),
-              //   ],
-              // ),
-            ),
             SizedBox(height: 10.0),
           ],
         )

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reduxx/models/article.dart';
-import 'package:flutter_reduxx/redux/articles/articles_actions.dart';
+import 'package:flutter_reduxx/models/user.dart';
 import 'package:flutter_reduxx/redux/store.dart';
+import 'package:flutter_reduxx/redux/users/users_actions.dart';
 
 class AdminUserCard extends StatefulWidget {
 
-  final Article article;
+  final User user;
 
-  AdminUserCard({this.article});
+  AdminUserCard({this.user});
 
   @override
   _AdminUserCardState createState() => _AdminUserCardState();
@@ -17,74 +17,37 @@ class _AdminUserCardState extends State<AdminUserCard> {
 
   @override
   Widget build(BuildContext context) {
-    var date = DateTime.parse(widget.article.createdAt);
     return Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
               title: Text(
-                widget.article.title,
+                widget.user.email,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(widget.article.description),
-              isThreeLine: true,
-              trailing: Text('${date.day}.${date.month}.${date.year}'),
-              leading: 
-              FlatButton(
-                onPressed: () {
-                  toggleActive(store: Redux.store, status: widget.article.status == "ACTIVE" ? "INACTIVE" : "ACTIVE", articleId: widget.article.id);
-                },
-                child: Text(widget.article.status),
-                color: widget.article.status == "ACTIVE" ? Colors.greenAccent : Colors.redAccent
-              )    
+              trailing: Text(widget.user.role),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 30.0, 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FlatButton(
-                      onPressed: () {
-                        showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                          AlertDialog(
-                            title: Text('Czy na pewno chcesz usunąć artykuł o ID ${widget.article.id}'),
-                            actions: [
-                              FlatButton(
-                                onPressed: () {
-                                  deleteArticle(articleId: widget.article.id, store: Redux.store);
-                                  Navigator.of(context).pop();
-                                },
-                                textColor: Colors.redAccent,
-                                child: Text('USUŃ')
-                              ),
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                textColor: Colors.black,
-                                child: Text('ANULUJ')
-                              ),
-                            ],
-                          )
-                        );
-                      },
-                      textColor: Colors.redAccent,
-                      child: Text('USUŃ')
-                    ),
-                  FlatButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                widget.user.role != "ADMIN" ? FlatButton(
                     onPressed: () {
-                      
+                      Redux.store.dispatch(banUser(store: Redux.store, id: widget.user.id));
                     },
-                    textColor: Colors.blueAccent,
-                    child: Text('EDYTUJ')
-                  ),
-                ],
-              ),
+                    textColor: Colors.redAccent,
+                    child: Text('ZBANUJ')
+                  ) : SizedBox(),
+                widget.user.role != "ADMIN" ? FlatButton(
+                  onPressed: () {
+                    Redux.store.dispatch(giveAdmin(store: Redux.store, id: widget.user.id));
+                  },
+                  textColor: Colors.blueAccent,
+                  child: Text('NADAJ ADMINA')
+                ) : SizedBox(),
+              ],
             ),
             SizedBox(height: 10.0),
           ],
