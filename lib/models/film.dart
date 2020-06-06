@@ -18,6 +18,6 @@ class Film {
     description = json['description'];
     director = json['director'];
     createdAt = json['createdAt'];
-    comments = json['comments'].length != 0 ? json['comments'].map((comment) => Comment.fromJson(comment)).toList() : new List<Comment>();
+    comments = json['comments'].length != 0 ? json['comments'].map<Comment>((comment) => Comment.fromJson(comment)).toList() : new List<Comment>();
   }
 }

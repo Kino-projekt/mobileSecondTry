@@ -12,6 +12,6 @@ class Comment {
     if (json == null) return;
     content = json['content'];
     movieId = json['movieId'];
-    user = User.fromJson(json['user']);
+    user = User.fromJson(json['author']);
   }
 }
