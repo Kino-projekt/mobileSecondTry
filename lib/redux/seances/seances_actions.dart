@@ -61,3 +61,23 @@ Future<void> addSeance({store, hallId, filmId, date}) async {
   }
 }
 
+Future<void> deleteSeance({store, id}) async {
+  try {
+    store.dispatch(SetSeancesStateAction(SeancesState(isLoading: true)));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    var res = await http.delete('https://afternoon-waters-37189.herokuapp.com/api/admin/seances/$id', 
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+    );
+    if(res.statusCode == 204) {
+      store.dispatch(SetSeancesStateAction(SeancesState(isSuccess: false)));
+      return store.dispatch(getSeances(store: store));
+    } else {
+      return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: false)));
+    }
+  } catch (err){
+    store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: true)));
+    print(err);
+  }
+}
+

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reduxx/models/seance.dart';
+import 'package:flutter_reduxx/redux/seances/seances_actions.dart';
 import 'package:flutter_reduxx/redux/store.dart';
 
 class AdminSeanceCard extends StatefulWidget {
@@ -36,7 +37,7 @@ class _AdminSeanceCardState extends State<AdminSeanceCard> {
               children: [
                 FlatButton(
                   onPressed: () {
-                    // Redux.store.dispatch(deleteSeance(store: Redux.store, id: widget.seance.id));
+                    Redux.store.dispatch(deleteSeance(store: Redux.store, id: widget.seance.id));
                   },
                   textColor: Colors.redAccent,
                   child: Text('USUŃ')
