@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reduxx/models/seance.dart';
+import 'package:flutter_reduxx/views/Booking/booking.dart';
 
 class SeanceCard extends StatelessWidget {
 
@@ -28,17 +29,6 @@ class SeanceCard extends StatelessWidget {
               children: <Widget>[
                 FlatButton(
                   child: Text(
-                    'CZYTAJ WIĘCEJ',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    )
-                  ),
-                  onPressed: () {},
-                ),
-                FlatButton(
-                  child: Text(
                     'ZAREZERWUJ',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -46,7 +36,11 @@ class SeanceCard extends StatelessWidget {
                       color: Colors.black,
                     ),
                     ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => Booking(seance: seance),
+                    ));
+                  },
                 ),
               ],
             ),
