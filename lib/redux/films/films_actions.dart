@@ -20,7 +20,6 @@ Future<void> getFilms({store}) async {
   try {
     store.dispatch(SetFilmsStateAction(FilmsState(isLoading: true, isError: false, isSuccess: false)));
     var filmsResponse = await http.get('https://afternoon-waters-37189.herokuapp.com/api/movies/');
-    print(filmsResponse.body);
     if(filmsResponse.statusCode == 200) {
         var filmsBody = await json.decode(filmsResponse.body);
 
@@ -93,7 +92,6 @@ Future<void> deleteFilm({store, id}) async {
     var res = await http.delete('https://afternoon-waters-37189.herokuapp.com/api/admin/movies/$id', 
       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
-    print(res.body);
     if(res.statusCode == 204) {
       store.dispatch(SetFilmsStateAction(FilmsState(isLoading: false, isError: false, isSuccess: false)));
       return store.dispatch(getFilms(store: store));

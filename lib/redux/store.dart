@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_reduxx/redux/articles/articles_state.dart';
+import 'package:flutter_reduxx/redux/halls/halls_actions.dart';
+import 'package:flutter_reduxx/redux/halls/halls_reducer.dart';
+import 'package:flutter_reduxx/redux/halls/halls_state.dart';
 import 'package:flutter_reduxx/redux/login/login_actions.dart';
 import 'package:flutter_reduxx/redux/login/login_reducer.dart';
 import 'package:flutter_reduxx/redux/login/login_state.dart';
@@ -57,6 +60,11 @@ AppState appReducer(AppState state, dynamic action) {
 
     return state.copyWith(usersState: nextInitialState);
   }
+  if (action is SetHallsStateAction) {
+    final nextInitialState = hallsReducer(state.hallsState, action);
+
+    return state.copyWith(hallsState: nextInitialState);
+  }
   return state;
 }
 
@@ -68,6 +76,7 @@ class AppState {
   final ArticlesState articlesState;
   final SeancesState seancesState;
   final UsersState usersState;
+  final HallsState hallsState;
 
   AppState({
     @required this.loginState,
@@ -76,6 +85,7 @@ class AppState {
     @required this.articlesState,
     @required this.seancesState,
     @required this.usersState,
+    @required this.hallsState,
   });
 
   AppState copyWith({
@@ -85,6 +95,7 @@ class AppState {
     ArticlesState articlesState,
     SeancesState seancesState,
     UsersState usersState,
+    HallsState hallsState,
   }) {
     return AppState(
       loginState: loginState ?? this.loginState,
@@ -93,6 +104,7 @@ class AppState {
       articlesState: articlesState ?? this.articlesState,
       seancesState: seancesState ?? this.seancesState,
       usersState: usersState ?? this.usersState,
+      hallsState: hallsState ?? this.hallsState,
     );
   }
 }
@@ -115,6 +127,7 @@ class Redux {
     final articlesStateInitial = ArticlesState.initial();
     final seancesStateInitial = SeancesState.initial();
     final usersStateInitial = UsersState.initial();
+    final hallsStateInitial = HallsState.initial();
 
     _store = Store<AppState>(
       appReducer,
@@ -126,6 +139,7 @@ class Redux {
         articlesState: articlesStateInitial,
         seancesState: seancesStateInitial,
         usersState: usersStateInitial,
+        hallsState: hallsStateInitial,
       ),
     );
   }

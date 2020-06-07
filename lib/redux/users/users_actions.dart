@@ -63,11 +63,9 @@ Future<void> giveAdmin({store, id}) async {
   try {
     store.dispatch(SetUsersStateAction(UsersState(isLoading: true, isError: false, isSuccess: false)));
     String token = prefs.getString('token');
-    print(id);
     var usersResponse = await http.patch('https://afternoon-waters-37189.herokuapp.com/api/admin/users/$id/update-role',
      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
-    print(usersResponse.body);
     if(usersResponse.statusCode == 200) {
         return store.dispatch(getUsers(store: store));
       } else {

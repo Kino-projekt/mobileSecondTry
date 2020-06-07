@@ -67,7 +67,6 @@ Future<void> toggleActive({store, articleId, status}) async {
       body: {"status": status},
     );
 
-    print(articlesResponse.statusCode);
     if(articlesResponse.statusCode == 200) {
 
         return store.dispatch(getAdminArticles(store: store));
@@ -113,7 +112,6 @@ Future<void> addArticle({store, title, description}) async {
         "description": description,
       }
     );
-    print(articlesResponse.statusCode);
     if(articlesResponse.statusCode == 201) {
 
         return store.dispatch(getAdminArticles(store: store));

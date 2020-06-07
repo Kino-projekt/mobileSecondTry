@@ -29,7 +29,7 @@ class _AdminSeanceCardState extends State<AdminSeanceCard> {
                 ),
               ),
               subtitle: Text('${date.day}.${date.month}.${date.year}'),
-              trailing: Text('Hala ${widget.seance.id.toString()}'),
+              trailing: Text('Hala ${widget.seance.hall.name}'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

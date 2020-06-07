@@ -20,9 +20,6 @@ class _AdminSeanceListState extends State<AdminSeanceList> {
 
   String filmId = '';
   String hallId = '';
-  DateTime date = DateTime.now();
-  TimeOfDay time = TimeOfDay.now();
-  final _formKey = GlobalKey<FormState>();
 
   List<Widget> makesSingleFromSeances(seances) {
     List<AdminSeanceCard> seanceList = new List();
@@ -32,30 +29,8 @@ class _AdminSeanceListState extends State<AdminSeanceList> {
     return seanceList;
   }
 
-  Future selectDate(BuildContext context) async {
-    final datePicked = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2022));
-    if(datePicked != null && datePicked != date){
-      setState(() {
-        date = datePicked;
-      });
-      print(date);
-    }
-  }
-
-  Future selectTime(BuildContext context) async {
-    final timePicked = await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if(timePicked != null && timePicked != time){
-      setState(() {
-        time = timePicked;
-      });
-      print(time);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    var newDate = date;
-    var newTime = time;
     return StoreConnector<AppState, SeancesState>(
       distinct: true,
       onInit: Redux.store.dispatch(getSeances(store: Redux.store)),
@@ -79,76 +54,7 @@ class _AdminSeanceListState extends State<AdminSeanceList> {
           ),
           floatingActionButton: FloatingActionButton(
               onPressed: () {
-                showDialog(
-                context: context,
-                builder: (BuildContext context) =>
-                  SingleChildScrollView(
-                                      child: AlertDialog(
-                      title: Text('Dodawanie nowego seansu'),
-                      content: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                          TextFormField(
-                            onChanged: (val) => setState(() => filmId = val),
-                            validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                            decoration: InputDecoration(
-                              labelText: 'Id filmu'
-                            ),
-                          ),
-                          TextFormField(
-                            onChanged: (val) => setState(() => hallId = val),
-                            validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                            decoration: InputDecoration(
-                              labelText: 'Id hali'
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              IconButton(
-                              icon: Icon(Icons.calendar_today),
-                              onPressed: (){
-                                selectDate(context);
-                              }
-                            ),
-                          Text('${newDate.day}.${newDate.month}.${newDate.year}'),
-                            ]
-                          ),
-                          Row(
-                            children: <Widget>[
-                              IconButton(
-                            icon: Icon(Icons.alarm),
-                            onPressed: (){
-                              selectTime(context);
-                            }
-                          ),
-                          Text(newTime.format(context).toString()),
-                            ],
-                          )
-                        ],
-                        ),
-                      ),
-                      actions: [
-                        FlatButton(
-                          onPressed: () async {
-                            // await Redux.store.dispatch(addSeance(store: Redux.store, title: title, director: director, description: description));
-                            Navigator.of(context).pop();
-                            print(date);
-                          },
-                          textColor: Colors.greenAccent,
-                          child: Text('DODAJ')
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          textColor: Colors.black,
-                          child: Text('ANULUJ')
-                        ),
-                      ],
-                    ),
-                  )
-                );
+                Navigator.pushNamed(context, '/addSeance');
               },
               backgroundColor: Colors.black,
               child: Icon(Icons.add),

@@ -1,9 +1,11 @@
-import 'package:flutter_reduxx/models/film.dart';
+import 'dart:io';
+
 import 'package:flutter_reduxx/models/seance.dart';
 import 'package:flutter_reduxx/redux/seances/seances_state.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @immutable
 class SetSeancesStateAction {
@@ -31,6 +33,31 @@ Future<void> getSeances({store}) async {
   } catch (err) {
     print(err);
     // return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: err, isSuccess: false)));
+  }
+}
+
+Future<void> addSeance({store, hallId, filmId, date}) async {
+  try {
+    store.dispatch(SetSeancesStateAction(SeancesState(isLoading: true)));
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/admin/seances', 
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+      body: {
+        "hallId": hallId.toString(),
+        "movieId": filmId.toString(),
+        "date": date.toIso8601String(),
+      },
+    );
+    if(res.statusCode == 201) {
+      store.dispatch(SetSeancesStateAction(SeancesState(isSuccess: false)));
+      return store.dispatch(getSeances(store: store));
+    } else {
+      return store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: false)));
+    }
+  } catch (err){
+    store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: true)));
+    print(err);
   }
 }
 
