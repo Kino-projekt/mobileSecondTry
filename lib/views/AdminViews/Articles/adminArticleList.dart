@@ -29,17 +29,6 @@ class _AdminArticleListState extends State<AdminArticleList> {
   String description = '';
   final _formKey = GlobalKey<FormState>();
 
-  // Widget getTextWidgets(List<String> errors)
-  // {
-  //   List<Widget> errorWidget = new List<Widget>();
-  //   for(var i = 0; i < errors.length; i++){
-  //       errorWidget.add(new Text(errors[i], style: TextStyle(color: Colors.redAccent)));
-  //   }
-  //   return new Row(children: errorWidget);
-  // }
-
-  
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ArticlesState>(
@@ -54,52 +43,7 @@ class _AdminArticleListState extends State<AdminArticleList> {
               ),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                showDialog(
-                context: context,
-                builder: (BuildContext context) =>
-                  AlertDialog(
-                    title: Text('Dodawanie nowego artykułu'),
-                    content: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                        TextFormField(
-                          onChanged: (val) => setState(() => title = val),
-                          validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                          decoration: InputDecoration(
-                            labelText: 'Tytuł'
-                          ),
-                        ),
-                        TextFormField(
-                          maxLines: 3,
-                          onChanged: (val) => setState(() => description = val),
-                          validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-                          decoration: InputDecoration(
-                            labelText: 'Treść'
-                          ),
-                        ),
-                      ],
-                      ),
-                    ),
-                    actions: [
-                      FlatButton(
-                        onPressed: () async {
-                          await Redux.store.dispatch(addArticle(store: Redux.store, title: title, description: description));
-                          Navigator.of(context).pop();
-                        },
-                        textColor: Colors.greenAccent,
-                        child: Text('DODAJ')
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        textColor: Colors.black,
-                        child: Text('ANULUJ')
-                      ),
-                    ],
-                  )
-                );
+                Navigator.pushNamed(context, '/addArticle');
               },
               backgroundColor: Colors.black,
               child: Icon(Icons.add),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_reduxx/redux/store.dart';
+import 'package:flutter_reduxx/views/AdminViews/Articles/adminAddArticle.dart';
 import 'package:flutter_reduxx/views/AdminViews/Articles/adminArticleList.dart';
+import 'package:flutter_reduxx/views/AdminViews/Films/adminAddFilm.dart';
 import 'package:flutter_reduxx/views/AdminViews/Films/adminFilmList.dart';
 import 'package:flutter_reduxx/views/AdminViews/Seances/adminAddSeance.dart';
 import 'package:flutter_reduxx/views/AdminViews/Seances/adminSeanceList.dart';
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
           '/articles': (BuildContext context) => AdminArticleList(),
           '/seances': (BuildContext context) => AdminSeanceList(),
           '/addSeance': (BuildContext context) => AddSeance(),
+          '/addFilm': (BuildContext context) => AddFilm(),
+          '/addArticle': (BuildContext context) => AddArticle(),
           '/films': (BuildContext context) => AdminFilmList(),
           '/users': (BuildContext context) => AdminUserList(),
           '/ticketChecker': (BuildContext context) => Ticket(),
