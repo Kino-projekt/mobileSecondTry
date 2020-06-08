@@ -10,28 +10,31 @@ import 'package:loading/indicator/ball_pulse_indicator.dart';
 class Booking extends StatefulWidget {
 
   final Seance seance;
-
   Booking({this.seance});
 
   @override
-  _BookingState createState() => _BookingState(checked: List.generate(seance.hall.countOfSeats, (i) => {"index": i, "checked": false}));
+  _BookingState createState() => _BookingState(checked: List.generate(seance.hall.countOfSeats, (i) => {"index": i, "checked": false}), booked: seance.occupiedSeats);
 }
 
 class _BookingState extends State<Booking> with SingleTickerProviderStateMixin {
 
-  final _formKey = GlobalKey<FormState>();
-
   String ticket = '';
   List checked;
-  _BookingState({this.checked});
+  List booked;
+  _BookingState({this.checked, this.booked});
   
   makeButtons(){
-    List<Widget> list = checked.map<Widget>((item) => Checkbox(value: item["checked"], onChanged: (b){
+    List<Widget> list = checked.map<Widget>((item) =>
+    !booked.any((i) => i == item['index']) ? Checkbox(value: item["checked"], activeColor: Colors.pinkAccent, onChanged: (b){
       var i = item['index'];
       setState(() {
         checked[i]["checked"] = b; 
       });
-    })).toList();
+    }) : Checkbox(value: true, onChanged: null,)
+      
+    
+    
+    ).toList();
     return list;
   }
   @override
@@ -85,7 +88,30 @@ class _BookingState extends State<Booking> with SingleTickerProviderStateMixin {
                         ),
                       onPressed: () {
                         List<int> seats = checked.where((e) => e["checked"] == true).map<int>((e) => e["index"]).toList();
-                        Redux.store.dispatch(book(store: Redux.store, seanceId: widget.seance.id, reservedSeats: seats));
+                        Redux.store.dispatch(book(store: Redux.store, seanceId: widget.seance.id.toString(), reservedSeats: seats));
+                        Navigator.of(context).pop((route) => false);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(20.0)),
+                            child: Container(
+                              height: 100,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('Zarezerwowałeś następujące miejsca: ${seats.toString()}')
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        });
                       },
                     ),
                     ],
@@ -99,59 +125,3 @@ class _BookingState extends State<Booking> with SingleTickerProviderStateMixin {
     );
   }
 }
-
-// Form(
-//                     key: _formKey,
-//                     child: SingleChildScrollView(
-//                         child: Column(
-//                         children: <Widget>[
-//                          TextFormField(
-//                           onChanged: (val) => setState(() => ticket = val),
-//                           validator: (val) => val.isEmpty ? 'Plese enter some text' : null,
-//                           decoration: InputDecoration(
-//                             labelText: 'Wpisz numer biletu'
-//                           ),
-//                         ),
-//                           SizedBox(height: 20),
-//                           FlatButton(
-//                               onPressed: () async {
-//                                 if (!_formKey.currentState.validate()) {
-//                                   return;
-//                                 } else {
-//                                   showDialog(
-//                                     context: context,
-//                                     builder: (BuildContext context) {
-//                                     return Dialog(
-//                                       shape: RoundedRectangleBorder(
-//                                           borderRadius:
-//                                               BorderRadius.circular(20.0)),
-//                                       child: Container(
-//                                         height: 100,
-//                                         child: Padding(
-//                                           padding: const EdgeInsets.all(12.0),
-//                                           child: Column(
-//                                             mainAxisAlignment: MainAxisAlignment.center,
-//                                             crossAxisAlignment: CrossAxisAlignment.center,
-//                                             children: [
-//                                               Text('Bilet $ticket poprawny!')
-//                                             ],
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     );
-//                                   });
-//                                 }                              
-//                               },
-//                               color: Colors.pinkAccent,
-//                               child: Text(
-//                                 'REZERWUJ',
-//                                 style: TextStyle(
-//                                   color: Colors.white,
-//                                   fontWeight: FontWeight.bold,
-//                                 ),
-//                               ),
-//                             ),
-//                         ],
-//                       ),
-//                     ),
-//                 ),

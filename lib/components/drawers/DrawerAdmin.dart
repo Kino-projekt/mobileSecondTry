@@ -102,6 +102,21 @@ class DrawerAdmin extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(
+                Icons.build,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Hale',
+                style: TextStyle(
+                  fontSize: 18.0
+                  ),
+                ),
+              onTap: () {
+                Navigator.pushNamed(context, '/halls');
+              },
+            ),
+            ListTile(
               leading: FaIcon(
                 FontAwesomeIcons.cog,
                 color: Colors.black,

@@ -10,17 +10,24 @@ class FilmCard extends StatelessWidget {
   FilmCard({this.film});
 
   makeComments(comments){
-    List<Widget> commentsList = comments.map<Widget>((comment) => ListTile(
-      title: Text(comment.content, textAlign: TextAlign.left, style: TextStyle(
-        fontSize: 14
-      )),
-      subtitle: Text(comment.user.email,textAlign: TextAlign.left, style: TextStyle(
-            fontSize: 12,
-            fontStyle: FontStyle.italic,
-            color: Colors.redAccent,
-          )), 
-      trailing: Icon(Icons.delete_outline, size: 20, color: Colors.redAccent), 
-      )).toList();
+    List<Widget> commentsList = comments.map<Widget>((comment) => Column(
+      children: [
+        ListTile(
+          title: Text(comment.content, textAlign: TextAlign.left, style: TextStyle(
+            fontSize: 14
+          )),
+          subtitle: Text(comment.user.email,textAlign: TextAlign.left, style: TextStyle(
+                fontSize: 12,
+                fontStyle: FontStyle.italic,
+                color: Colors.redAccent,
+              )), 
+              
+          ),
+          Divider(
+              color: Colors.black
+            )
+      ],
+    )).toList();
     return commentsList;
   }
 
@@ -53,7 +60,7 @@ class FilmCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Text("Brak komentarzy"),
             ),
-            Padding(
+            Redux.store.state.loginState.user.email != null ? Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
               child: TextField(
                 decoration: InputDecoration(
@@ -63,7 +70,7 @@ class FilmCard extends StatelessWidget {
                   Redux.store.dispatch(addComment(store: Redux.store, filmId: film.id, comment: value));
                 }
               ),
-            )
+            ) : SizedBox(),
           ],
         )
       );

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_reduxx/models/seance.dart';
 import 'package:flutter_reduxx/redux/seances/seances_state.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +20,7 @@ Future<void> getSeances({store}) async {
   try {
     store.dispatch(SetSeancesStateAction(SeancesState(isLoading: true, isError: false, isSuccess: false)));
     var seancesResponse = await http.get('https://afternoon-waters-37189.herokuapp.com/api/seances/');
-
+  print(seancesResponse.body);
     if(seancesResponse.statusCode == 200) {
         var seancesBody = await json.decode(seancesResponse.body);
         List<Seance> seances = seancesBody.map<Seance>((seance) => Seance.fromJson(seance)).toList();
@@ -86,14 +85,13 @@ Future<void> book({store, seanceId, reservedSeats}) async {
     store.dispatch(SetSeancesStateAction(SeancesState(isLoading: true)));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
-    print(seanceId);
-    print(reservedSeats);
+    Map response = {
+      "seanceId": seanceId,
+      "reservedSeats": reservedSeats,
+    };
     var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/bookings', 
-      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-      body: {
-        "reservedSeats": reservedSeats.toString(),
-        "seanceId": seanceId.toString(),
-      }
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token', "Content-Type": "application/json"},
+      body: jsonEncode(response)
     );
     print(res.body);
     if(res.statusCode == 201) {
@@ -104,7 +102,7 @@ Future<void> book({store, seanceId, reservedSeats}) async {
     }
   } catch (err){
     store.dispatch(SetSeancesStateAction(SeancesState(isLoading: false, isError: true)));
-    print(err);
+    print('Error $err');
   }
 }
 

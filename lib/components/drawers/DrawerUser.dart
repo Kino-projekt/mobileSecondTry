@@ -41,21 +41,6 @@ class _DrawerUserState extends State<DrawerUser> {
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.grade,
-                color: Colors.black,
-              ),
-              title: Text(
-                'Moje rezerwacje',
-                style: TextStyle(
-                  fontSize: 18.0
-                  ),
-                ),
-              onTap: () {
-                Navigator.pushNamed(context, '/register');
-              },
-            ),
-            ListTile(
               leading: FaIcon(
                 FontAwesomeIcons.cog,
                 color: Colors.black,

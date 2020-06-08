@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_reduxx/models/hall.dart';
 import 'package:flutter_reduxx/redux/halls/halls_state.dart';
 import 'package:http/http.dart' as http;
@@ -32,72 +34,47 @@ Future<void> getHalls({store}) async {
   }
 }
 
-// Future<void> addComment({store, hallId, comment}) async { 
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   try {
-//     store.dispatch(SetHallsStateAction(HallsState(isLoading: true, isError: false)));
-//     String token = prefs.getString('token');
-//     var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/comments/', 
-//       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-//       body: {
-//         "content": comment,
-//         "movieId": hallId.toString(),
-//       },
-//     );
-//     if(res.statusCode == 201) {
-//       store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false, isSuccess: false)));
-//       return store.dispatch(getHalls(store: store));
-//     } else {
-//       return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false)));
-//     }
-//   } catch (err) {
-//     print(err);
-//     return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false)));
-//   }
-// }
+Future<void> deleteHall({store, hallId}) async { 
+  try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    store.dispatch(SetHallsStateAction(HallsState(isLoading: true, isError: false, isSuccess: false)));
+    String token = prefs.getString('token');
+    var hallsResponse = await http.delete('https://afternoon-waters-37189.herokuapp.com/api/admin/halls/$hallId', headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},);
+    if(hallsResponse.statusCode == 204) {
+        store.dispatch(SetHallsStateAction(HallsState(isSuccess: false)));
+        return store.dispatch(getHalls(store: store));
+      } else {
+        return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: true, isSuccess: false)));
+      }
+  } catch (err) {
+    print(err);
+    return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isSuccess: false)));
+  }
+}
 
-// Future<void> addFilm({store, title, director, description}) async { 
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   try {
-//     store.dispatch(SetHallsStateAction(HallsState(isLoading: true, isError: false)));
-//     String token = prefs.getString('token');
-//     var res = await http.post('https://afternoon-waters-37189.herokuapp.com/api/admin/movies', 
-//       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-//       body: {
-//         "title": title,
-//         "director": director,
-//         "description": description,
-//       },
-//     );
-//     if(res.statusCode == 201) {
-//       store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false, isSuccess: false)));
-//       return store.dispatch(getHalls(store: store));
-//     } else {
-//       return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false)));
-//     }
-//   } catch (err) {
-//     print(err);
-//     return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false)));
-//   }
-// }
-
-// Future<void> deleteFilm({store, id}) async { 
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   try {
-//     store.dispatch(SetHallsStateAction(HallsState(isLoading: true, isError: false)));
-//     String token = prefs.getString('token');
-//     var res = await http.delete('https://afternoon-waters-37189.herokuapp.com/api/admin/movies/$id', 
-//       headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
-//     );
-//     if(res.statusCode == 204) {
-//       store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false, isSuccess: false)));
-//       return store.dispatch(getHalls(store: store));
-//     } else {
-//       return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false)));
-//     }
-//   } catch (err) {
-//     print(err);
-//     return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: false)));
-//   }
-// }
-
+Future<void> addHall({store, name, countOfSeats}) async { 
+  try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    store.dispatch(SetHallsStateAction(HallsState(isLoading: true, isError: false, isSuccess: false)));
+    String token = prefs.getString('token');
+    Map<String, dynamic> object = {
+      "name": name,
+      "countOfSeats": countOfSeats
+    };
+    print(object);
+    var hallsResponse = await http.post('https://afternoon-waters-37189.herokuapp.com/api/admin/halls', 
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token', "Content-Type": "application/json"},
+      body: jsonEncode(object)
+    );
+    print(hallsResponse.body);
+    if(hallsResponse.statusCode == 201) {
+        store.dispatch(SetHallsStateAction(HallsState(isSuccess: false)));
+        return store.dispatch(getHalls(store: store));
+      } else {
+        return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isError: true, isSuccess: false)));
+      }
+  } catch (err) {
+    print(err);
+    return store.dispatch(SetHallsStateAction(HallsState(isLoading: false, isSuccess: false)));
+  }
+}

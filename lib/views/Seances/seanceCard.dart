@@ -5,8 +5,9 @@ import 'package:flutter_reduxx/views/Booking/booking.dart';
 class SeanceCard extends StatelessWidget {
 
   final Seance seance;
+  final bool user;
 
-  SeanceCard({this.seance});
+  SeanceCard({this.seance, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class SeanceCard extends StatelessWidget {
               subtitle: Text('${date.day}.${date.month}.${date.year}'),
             ),
             SizedBox(height: 10.0),
-            ButtonBar(
+            user ? ButtonBar(
               children: <Widget>[
                 FlatButton(
                   child: Text(
@@ -43,7 +44,7 @@ class SeanceCard extends StatelessWidget {
                   },
                 ),
               ],
-            ),
+            ) : SizedBox(),
           ],
         )
       );

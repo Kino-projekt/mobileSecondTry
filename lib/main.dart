@@ -5,6 +5,8 @@ import 'package:flutter_reduxx/views/AdminViews/Articles/adminAddArticle.dart';
 import 'package:flutter_reduxx/views/AdminViews/Articles/adminArticleList.dart';
 import 'package:flutter_reduxx/views/AdminViews/Films/adminAddFilm.dart';
 import 'package:flutter_reduxx/views/AdminViews/Films/adminFilmList.dart';
+import 'package:flutter_reduxx/views/AdminViews/Halls/adminAddHall.dart';
+import 'package:flutter_reduxx/views/AdminViews/Halls/adminHallList.dart';
 import 'package:flutter_reduxx/views/AdminViews/Seances/adminAddSeance.dart';
 import 'package:flutter_reduxx/views/AdminViews/Seances/adminSeanceList.dart';
 import 'package:flutter_reduxx/views/AdminViews/Ticket/ticket.dart';
@@ -42,10 +44,12 @@ class MyApp extends StatelessWidget {
           '/settings': (BuildContext context) => Settings(),
 
           '/articles': (BuildContext context) => AdminArticleList(),
+          '/halls': (BuildContext context) => AdminHallList(),
           '/seances': (BuildContext context) => AdminSeanceList(),
           '/addSeance': (BuildContext context) => AddSeance(),
           '/addFilm': (BuildContext context) => AddFilm(),
           '/addArticle': (BuildContext context) => AddArticle(),
+          '/addHall': (BuildContext context) => AddHall(),
           '/films': (BuildContext context) => AdminFilmList(),
           '/users': (BuildContext context) => AdminUserList(),
           '/ticketChecker': (BuildContext context) => Ticket(),
